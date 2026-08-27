@@ -15,7 +15,8 @@ export default function ContactCta({ locale }: { locale: Locale }) {
     e.preventDefault();
     if (status === "sending" || status === "success") return;
 
-    const data = new FormData(e.currentTarget);
+    const formEl = e.currentTarget;
+    const data = new FormData(formEl);
     const payload = {
       email: String(data.get("email") || ""),
       company: String(data.get("company") || ""),
@@ -39,7 +40,7 @@ export default function ContactCta({ locale }: { locale: Locale }) {
       }
 
       setStatus("success");
-      e.currentTarget.reset();
+      formEl.reset();
     } catch {
       setStatus("error");
     }
