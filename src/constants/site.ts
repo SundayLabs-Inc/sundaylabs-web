@@ -166,12 +166,12 @@ const en = {
     form: {
       email: "Email (required)",
       company: "Company / Organization (required)",
-      role: "Name / Role (optional)",
-      message: "Message (optional)",
+      role: "Name / Role (required)",
+      message: "Message (required)",
       messagePlaceholder:
         "Target site, tasks, timeline, or goals — anything helps.",
       sending: "Sending…",
-      success: "Message sent.",
+      success: "Message sent. We'll get back to you within 1–2 business days.",
       error: "Failed to send. Please try again.",
       subject: "Inquiry",
       bodyLabels: {
@@ -429,11 +429,11 @@ const ja = {
     form: {
       email: "メールアドレス（必須）",
       company: "会社・組織名（必須）",
-      role: "ご担当（任意）",
-      message: "メッセージ（任意）",
+      role: "ご担当（必須）",
+      message: "メッセージ（必須）",
       messagePlaceholder: "",
       sending: "送信中…",
-      success: "送信しました。",
+      success: "送信しました。1〜2営業日以内にご連絡いたします。",
       error: "送信に失敗しました。もう一度お試しください。",
       subject: "お問い合わせ",
       bodyLabels: {

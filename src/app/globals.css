@@ -1074,6 +1074,29 @@ body {
   color: var(--secondary);
 }
 
+.form-status {
+  width: 100%;
+  border-radius: 0.75rem;
+  padding: 0.95rem 1.1rem;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.45;
+}
+
+.form-status-success {
+  color: var(--fg);
+  background: color-mix(in srgb, var(--fg) 7%, transparent);
+  border: 1px solid color-mix(in srgb, var(--fg) 18%, transparent);
+}
+
+.form-status-error {
+  color: #7a1515;
+  background: color-mix(in srgb, #7a1515 8%, transparent);
+  border: 1px solid color-mix(in srgb, #7a1515 22%, transparent);
+}
+
 /* Footer — boxed like other sections */
 .site-footer-shell {
   padding: 0 var(--pad-x) calc(var(--pad-x) + env(safe-area-inset-bottom, 0px));

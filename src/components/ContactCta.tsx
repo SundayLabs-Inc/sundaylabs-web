@@ -70,11 +70,12 @@ export default function ContactCta({ locale }: { locale: Locale }) {
       </label>
       <label className="block">
         <span className="label-1 mb-2 block text-muted">{form.role}</span>
-        <input name="role" type="text" className="field-input" />
+        <input required name="role" type="text" className="field-input" />
       </label>
       <label className="block">
         <span className="label-1 mb-2 block text-muted">{form.message}</span>
         <textarea
+          required
           name="message"
           rows={4}
           placeholder={form.messagePlaceholder}
@@ -89,12 +90,12 @@ export default function ContactCta({ locale }: { locale: Locale }) {
           {status === "sending" ? form.sending : site.contact.submit}
         </CtaButton>
         {status === "success" ? (
-          <p className="font-detail text-sm text-muted" role="status">
+          <p className="form-status form-status-success" role="status">
             {form.success}
           </p>
         ) : null}
         {status === "error" ? (
-          <p className="font-detail text-sm text-muted" role="alert">
+          <p className="form-status form-status-error" role="alert">
             {form.error}
           </p>
         ) : null}

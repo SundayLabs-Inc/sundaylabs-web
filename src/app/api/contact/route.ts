@@ -37,7 +37,7 @@ export async function POST(request: Request) {
   const message = String(payload.message ?? "").trim();
   const locale = payload.locale === "en" ? "en" : "ja";
 
-  if (!email || !company || !isValidEmail(email)) {
+  if (!email || !company || !role || !message || !isValidEmail(email)) {
     return NextResponse.json({ error: "invalid_input" }, { status: 400 });
   }
 
@@ -62,9 +62,9 @@ export async function POST(request: Request) {
   const text = [
     `${labels.email}: ${email}`,
     `${labels.company}: ${company}`,
-    `${labels.role}: ${role || "—"}`,
+    `${labels.role}: ${role}`,
     "",
-    message ? `${labels.message}:\n${message}` : `${labels.message}: —`,
+    `${labels.message}:\n${message}`,
   ].join("\n");
 
   const resend = new Resend(apiKey);
