@@ -3,9 +3,9 @@ const en = {
   nameEn: "Ashitano Robotics",
   legalName: "ASHITANO Robotics, Inc.",
   email: "contact@ashitanorobotics.co.jp",
-  tagline: "Enriching tomorrow through technology.",
+  tagline: "Enriching tomorrow through Physical AI.",
   description:
-    "Enriching tomorrow through technology. We deploy physical AI — humanoids, quadrupeds, and robot arms — at industrial sites, from PoC through operations design.",
+    "Enriching tomorrow through Physical AI. We deploy physical AI — humanoids, quadrupeds, and robot arms — at industrial sites, from PoC through operations design.",
   copyright: "© 2026 Ashitano Robotics. All Rights Reserved.",
   nav: {
     services: "Services",
@@ -15,7 +15,7 @@ const en = {
     contact: "Contact",
   },
   hero: {
-    title: "Enriching Tomorrow\nThrough Technology",
+    title: "Enriching Tomorrow\nThrough Physical AI",
     alt: "Physical AI on site",
   },
   mission: {
@@ -205,7 +205,7 @@ const en = {
     ],
   },
   seo: {
-    homeTitle: "Ashitano Robotics | Enriching Tomorrow Through Technology",
+    homeTitle: "Ashitano Robotics | Enriching Tomorrow Through Physical AI",
     companyDescription:
       "Company profile of Ashitano Robotics — software development, on-site integration, deployment support, and operations design using physical AI.",
     privacyDescription:
@@ -265,9 +265,9 @@ const ja = {
   nameEn: "Ashitano Robotics",
   legalName: "あしたのロボティクス株式会社",
   email: "contact@ashitanorobotics.co.jp",
-  tagline: "テクノロジーで、あしたをもっと豊かに。",
+  tagline: "フィジカルAIで、あしたをもっと豊かに。",
   description:
-    "テクノロジーで、あしたをもっと豊かに。",
+    "フィジカルAIで、あしたをもっと豊かに。",
   copyright: "© 2026 Ashitano Robotics. All Rights Reserved.",
   nav: {
     services: "事業内容",
@@ -277,7 +277,7 @@ const ja = {
     contact: "お問い合わせ",
   },
   hero: {
-    title: "テクノロジーで、\nあしたをもっと豊かに",
+    title: "フィジカルAIで、\nあしたをもっと豊かに",
     alt: "現場で活動するフィジカルAI",
   },
   mission: {
@@ -466,7 +466,7 @@ const ja = {
     ],
   },
   seo: {
-    homeTitle: "あしたのロボティクス株式会社 | テクノロジーで、あしたをもっと豊かに。",
+    homeTitle: "あしたのロボティクス株式会社 | フィジカルAIで、あしたをもっと豊かに。",
     companyDescription:
       "あしたのロボティクス株式会社の会社概要。フィジカル AIを活用したソフトウェアの開発と現場へのインテグレーション、導入支援、運用設計を行っています。",
     privacyDescription:
