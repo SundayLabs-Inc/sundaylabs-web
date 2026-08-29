@@ -1,4 +1,5 @@
 import { getSite, type Locale } from "@/constants/site";
+import InteractiveFooterCanvas from "@/components/InteractiveFooterCanvas";
 
 export default function Footer({ locale }: { locale: Locale }) {
   const site = getSite(locale);
@@ -16,6 +17,8 @@ export default function Footer({ locale }: { locale: Locale }) {
   return (
     <footer className="site-footer-shell">
       <div className="site-footer">
+        <InteractiveFooterCanvas />
+
         <div className="site-footer-main">
           <a href={home} className="site-footer-brand" aria-label="Home">
             <img src="/images/logo-mark.png" alt="" />
@@ -23,8 +26,9 @@ export default function Footer({ locale }: { locale: Locale }) {
           </a>
           <nav className="site-footer-nav" aria-label="Footer">
             {links.map((link) => (
-              <a key={link.href} href={link.href}>
-                {link.label}
+              <a key={link.href} href={link.href} className="site-footer-link">
+                <span className="site-footer-link-dot" aria-hidden="true" />
+                <span>{link.label}</span>
               </a>
             ))}
           </nav>

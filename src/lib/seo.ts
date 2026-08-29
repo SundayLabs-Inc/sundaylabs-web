@@ -140,8 +140,11 @@ export function createRootMetadata(): Metadata {
       telephone: false,
     },
     icons: {
-      icon: [{ url: "/icon.png", type: "image/png" }],
-      apple: [{ url: "/apple-icon.png", type: "image/png" }],
+      icon: [
+        { url: "/icon.svg?v=3", type: "image/svg+xml" },
+        { url: "/icon.png?v=3", type: "image/png" },
+      ],
+      apple: [{ url: "/apple-icon.png?v=3", type: "image/png" }],
     },
     openGraph: {
       siteName: site.nameEn,

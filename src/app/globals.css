@@ -1091,12 +1091,14 @@ body {
   color: #7a1515;
 }
 
-/* Footer — boxed with slim margin */
+/* Footer — boxed with slim margin and dynamic interactive dot matrix */
 .site-footer-shell {
   padding: 0 6px calc(6px + env(safe-area-inset-bottom, 0px));
 }
 
 .site-footer {
+  position: relative;
+  overflow: hidden;
   display: flex;
   min-height: 18rem;
   flex-direction: column;
@@ -1107,9 +1109,12 @@ body {
   border-radius: 0.5rem;
   background: var(--accent);
   color: #fff;
+  text-shadow: 0 0 10px rgba(26, 26, 26, 0.9), 0 0 20px rgba(26, 26, 26, 0.9);
 }
 
 .site-footer-main {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -1121,6 +1126,11 @@ body {
   align-items: center;
   gap: 0.75rem;
   color: #fff;
+  transition: opacity 0.2s ease;
+}
+
+.site-footer-brand:hover {
+  opacity: 0.85;
 }
 
 .site-footer-brand img {
@@ -1143,18 +1153,41 @@ body {
   gap: 0.85rem 2rem;
 }
 
-.site-footer-nav a {
+.site-footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   color: #fff;
   font-size: 0.9375rem;
   line-height: 1.5;
   letter-spacing: -0.02em;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.site-footer-nav a:hover {
-  color: rgba(255, 255, 255, 0.6);
+.site-footer-link-dot {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;
+  background: #fff;
+  opacity: 0;
+  transform: translateX(-4px) scale(0.5);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.site-footer-link:hover {
+  color: #fff;
+  transform: translateX(3px);
+}
+
+.site-footer-link:hover .site-footer-link-dot {
+  opacity: 0.9;
+  transform: translateX(0) scale(1);
 }
 
 .site-footer-copy {
+  position: relative;
+  z-index: 1;
   margin: 0;
   padding-top: 0.5rem;
   font-family: var(--font-mono);
