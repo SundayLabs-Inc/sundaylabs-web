@@ -1091,9 +1091,9 @@ body {
   color: #7a1515;
 }
 
-/* Footer — boxed like other sections */
+/* Footer — boxed with slim margin */
 .site-footer-shell {
-  padding: 0 var(--pad-x) calc(var(--pad-x) + env(safe-area-inset-bottom, 0px));
+  padding: 0 6px calc(6px + env(safe-area-inset-bottom, 0px));
 }
 
 .site-footer {
@@ -1104,7 +1104,7 @@ body {
   gap: 2.5rem;
   margin: 0;
   padding: 2.75rem 1.75rem 2.25rem;
-  border-radius: 0.75rem;
+  border-radius: 0.5rem;
   background: var(--accent);
   color: #fff;
 }
@@ -1164,9 +1164,14 @@ body {
 }
 
 @media (min-width: 768px) {
+  .site-footer-shell {
+    padding: 0 8px calc(8px + env(safe-area-inset-bottom, 0px));
+  }
+
   .site-footer {
     min-height: 22rem;
     padding: 3.5rem 2.5rem 2.75rem;
+    border-radius: 0.625rem;
     gap: 3rem;
   }
 
