@@ -141,10 +141,10 @@ export function createRootMetadata(): Metadata {
     },
     icons: {
       icon: [
-        { url: "/icon.svg?v=3", type: "image/svg+xml" },
-        { url: "/icon.png?v=3", type: "image/png" },
+        { url: "/icon.svg?v=4", type: "image/svg+xml" },
+        { url: "/icon.png?v=4", type: "image/png" },
       ],
-      apple: [{ url: "/apple-icon.png?v=3", type: "image/png" }],
+      apple: [{ url: "/apple-icon.png?v=4", type: "image/png" }],
     },
     openGraph: {
       siteName: site.nameEn,
