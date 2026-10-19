@@ -1,0 +1,87 @@
+/* Agility latest press row — https://www.agilityrobotics.com/ */
+.schedule-sunday {
+  background: #fff;
+  color: #292827;
+  padding: 128px 16px;
+}
+
+.schedule-heading {
+  margin: 0 0 30px;
+  font-size: clamp(24px, calc(24px + 12 * ((100vw - 500px) / 940)), 36px);
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: -0.03em;
+  text-align: left;
+  word-break: auto-phrase;
+  line-break: strict;
+}
+
+.schedule-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.schedule-card-face {
+  display: flex;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 8px;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.schedule-card-face h3 {
+  margin: 0;
+  font-size: clamp(18px, calc(18px + 4 * ((100vw - 500px) / 940)), 22px);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  word-break: auto-phrase;
+  line-break: strict;
+}
+
+.schedule-card-face p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.schedule-card-face.is-dark {
+  color: #fff;
+}
+
+.schedule-card-face.is-dark p {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.schedule-card-face.is-light {
+  color: #292827;
+}
+
+.schedule-card-face.is-light p {
+  color: rgba(41, 40, 39, 0.72);
+}
+
+@media (min-width: 700px) {
+  .schedule-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .schedule-sunday {
+    padding: 192px 24px;
+  }
+
+  .schedule-row {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 32px;
+  }
+}

@@ -82,6 +82,8 @@ export default function ContactCta({ locale }: { locale: Locale }) {
           className="field-input resize-y"
         />
       </label>
+      <p className="text-sm text-muted">{locale === "ja" ? "個人情報の取り扱いについては" : "Please review our "}<a className="underline" href={locale === "en" ? "/en/privacy" : "/privacy"}>{site.privacy.title}</a>{locale === "ja" ? "をご確認ください。" : "."}</p>
+      <p className="text-sm text-muted">{locale === "ja" ? "メールでのご相談：" : "Email us: "}<a className="underline" href={`mailto:${site.email}`}>{site.email}</a></p>
       <div className="mt-2 flex flex-col items-center gap-3">
         <CtaButton
           type="submit"

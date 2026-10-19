@@ -1,9 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { site } from "@/constants/site";
 import { INTRO_DONE_EVENT } from "@/constants/events";
-
 const STORAGE_KEY = "ashitano-intro-seen";
 
 function notifyIntroDone() {
@@ -65,7 +63,6 @@ export default function IntroLoader() {
     >
       <div className="intro-brand">
         <img src="/images/logo-mark.png" alt="" />
-        <span>{site.nameEn}</span>
       </div>
     </div>
   );

@@ -122,39 +122,34 @@ const en = {
   },
   faqs: [
     {
-      question: "What can Physical AI do?",
+      question: "What do you support?",
       answer:
-        "We combine humanoids, quadrupeds, robot arms, and AMRs with AI-driven perception, judgment, and control to automate tasks on site. Work includes transport and handling, patrol and inspection, and hazardous or demanding work — in manufacturing, logistics, construction, infrastructure, and primary industry. We also support non-standard tasks and long operating hours.",
+        "We support deploying Physical AI on site: R&D infrastructure, development teams and in-house capability, and joint R&D. The three can be taken together or started from one.",
     },
     {
-      question: "Can we purchase a robot?",
+      question: "What do you build for R&D infrastructure?",
       answer:
-        "Our business is software development, on-site integration, deployment support, and operations design using physical AI — not retail sales.",
+        "In your space, we set up the robot lab, robots and sensors, GPU and compute, a data collection and training environment, and an evaluation and validation environment. We leave the setup that research needs in order to continue.",
     },
     {
-      question: "How much does it cost?",
+      question: "What stays after the organization work?",
       answer:
-        "We propose an approach, schedule, and cost matched to your on-site challenge. A PoC agreement covers period, cost, deliverables, and success conditions. We do not publish a list price.",
+        "A development team, hiring support, technology transfer, engineer training, and a development process. The aim is a team on site that can keep the work going without depending on an outside group.",
     },
     {
-      question: "Which robots do you work with?",
+      question: "What does joint R&D cover?",
       answer:
-        "We work with humanoids such as Unitree G1, quadrupeds such as Unitree As2, and robot arms such as Enactic OpenArm. For quadrupeds, we select hardware based on each site's environment and tasks — not limited to As2. We propose the optimal combination of humanoids, quadrupeds, arms, and AMRs for your site and operating conditions.",
+        "Physical AI research, VLA and imitation learning, robot control, PoC development, and on-robot validation. The work is done on the real robot, then checked.",
     },
     {
-      question: "How is this different from traditional robots?",
+      question: "Do you sell robots?",
       answer:
-        "Traditional robots are built for structured, fixed environments, repetitive motions, and standardized tasks. Physical AI understands situations, decides independently, and acts in changing real-world environments — handling tasks that require flexibility.",
+        "We do not sell robots at retail. Selecting technology and hardware, and bringing in robots and sensors, is part of the on-site implementation work.",
     },
     {
-      question: "Can robots work alongside people on site?",
+      question: "How is the cost set?",
       answer:
-        "Yes. We design deployment and operations to match on-site tasks and safety requirements. We install on site, tune for real operations, and verify safety. When hardware is deployed, we also review safety and operating conditions.",
-    },
-    {
-      question: "How long does it take to start?",
-      answer:
-        "PoC launch takes about one month: discovery and requirements, proposal and estimate, contract, hardware and development, on-site setup and tuning, then verification begins. After that, we move through site deployment, verification, improvement, PoC review, and full rollout. Full deployment includes ongoing software development and on-site operations support.",
+        "We propose a scope and a cost for the support you take. We do not publish a list price.",
     },
   ],
   contact: {
@@ -380,50 +375,40 @@ const ja = {
   },
   faqs: [
     {
-      question: "フィジカルAIで、何ができますか？",
+      question: "どのような支援をしていますか？",
       answer:
-        "ヒューマノイド・四足歩行・アーム・AMRなど、ロボットに、AIによる認識・判断・制御を組み合わせ、現場の業務を自動化します。運搬・搬送、巡回・点検、危険・過酷な作業など、製造、物流、建設、インフラ、一次産業の現場が対象です。非定型で長時間の現場特性にも対応します。",
+        "Physical AIの現場実装に向けて、研究開発基盤構築、開発組織・内製化、共同研究開発を支援します。3つは組み合わせても、一つから始めても進められます。",
     },
     {
-      question: "費用はどのくらいかかりますか？",
+      question: "研究開発基盤構築では、何を作りますか？",
       answer:
-        "現場の課題に合わせて、解決のアプローチ、スケジュール、費用をご提案します。PoC契約で期間・費用・成果条件等を合意します。定価の公開はしておりません。",
+        "御社のスペースで、ロボットラボ、ロボット・センサー、GPU・計算環境、データ収集・学習環境、評価・検証環境を整えます。研究開発を続けるための環境を残します。",
     },
     {
-      question: "導入の進め方を教えてください。",
+      question: "開発組織・内製化では、何を残しますか？",
       answer:
-        "機体調達、現場設置、運用設計、検証から本導入まで、対象業務と現場体制に合わせてご提案します。ヒアリング・要件定義、ご提案・お見積り、ご契約、機体準備・開発、現場設置・調整、検証開始の順で進めます。",
+        "開発チームの立ち上げ、採用支援、技術移管、エンジニア育成、開発プロセスの構築を行います。外から持ち込んだ開発を、現場の組織が続けられる状態にします。",
     },
     {
-      question: "導入後のサポートはありますか？",
+      question: "共同研究開発では、何を進めますか？",
       answer:
-        "本導入後は、開発・ソフトウェアの継続改善と、現場オペレーションの最適化・定着支援を行います。",
+        "Physical AI技術の研究開発、VLA・模倣学習、ロボット制御、PoC開発、実機検証を、実機で進めます。",
     },
     {
-      question: "どの業界に対応していますか？",
+      question: "ロボットの販売はしていますか？",
       answer:
-        "製造、物流、建設、インフラ、一次産業の現場が対象です。運搬・搬送、巡回・点検、危険・過酷な作業など、非定型で長時間の現場特性にも対応します。",
+        "ロボットの小売販売は行っていません。技術・機体の選定と、ロボット・センサーの導入は、現場実装のための支援として行います。",
     },
     {
-      question: "従来の産業用ロボットと何が違いますか？",
+      question: "費用はどのように決まりますか？",
       answer:
-        "従来のロボットは、整備された固定環境で、決められた動きを繰り返す定型・固定作業向けです。フィジカル AIは、変化する現場環境で、状況を理解し、自ら判断して動きます。状況に応じて判断・行動し、柔軟性が必要な業務に対応します。",
-    },
-    {
-      question: "人と一緒に現場で使えますか？",
-      answer:
-        "はい。現場の業務と安全条件に合わせて、導入・運用設計を行います。現場に設置し、実運用に向けた調整・安全確認を行います。現場投入時には、安全性・運用条件の検討も行います。",
-    },
-    {
-      question: "導入まで、どのくらいかかりますか？",
-      answer:
-        "概念検証（PoC）開始までは約1ヶ月間です。ヒアリング・要件定義、ご提案・お見積り、ご契約、機体準備・開発、現場設置・調整、検証開始の順で進めます。その後、機体選定、開発、検証、改善、本導入・保守運用へ進みます。本導入後は、開発・ソフトウェアの継続改善と、現場オペレーションの最適化・定着支援を行います。",
+        "受ける支援と範囲に合わせて提案します。定価は公開していません。",
     },
   ],
   contact: {
     title: "お問い合わせ",
     body:
-      "製造、物流、建設、インフラ、一次産業など、\n産業現場におけるPoC・導入のご相談を受け付けています。\n\n機体調達、現場設置、運用設計、検証から本導入まで、\n対象業務と現場体制に合わせてご提案します。",
+      "製造、物流、建設、インフラ、一次産業など、\n産業現場における機体の検証、PoC、研修のご相談を受け付けています。\n\n対象業務と目的に合わせてご提案します。",
     cta: "お問い合わせ",
     submit: "送信する",
     form: {
@@ -452,27 +437,24 @@ const ja = {
     title: "会社概要",
     rows: [
       { label: "社名", value: "あしたのロボティクス株式会社" },
-      { label: "代表者", value: "原優水輝" },
+      { label: "英語名", value: "Ashitano Robotics, Inc." },
+      { label: "代表者", value: "原 優水輝" },
       {
         label: "所在地",
         value: "〒150-0044\n東京都渋谷区円山町5-3\nMIEUX渋谷ビル8階",
       },
-      {
-        label: "事業内容",
-        value:
-          "フィジカル AIを活用したソフトウェアの開発と現場へのインテグレーション、導入支援、運用設計",
-      },
+      { label: "事業内容", value: "研究開発基盤構築\nフィジカルAI研修\n共同研究開発" },
       { label: "連絡先", value: "contact@ashitanorobotics.co.jp" },
     ],
   },
   seo: {
     homeTitle: "あしたのロボティクス株式会社 | フィジカルAIで、あしたをもっと豊かに。",
     companyDescription:
-      "あしたのロボティクス株式会社の会社概要。フィジカル AIを活用したソフトウェアの開発と現場へのインテグレーション、導入支援、運用設計を行っています。",
+      "あしたのロボティクス株式会社の会社概要。研究開発基盤構築、フィジカルAI研修、共同研究開発を行っています。",
     privacyDescription:
       "あしたのロボティクス株式会社のプライバシーポリシー。当ウェブサイトを通じて取得した個人情報の取り扱いについてご説明します。",
     contactDescription:
-      "あしたのロボティクス株式会社へのお問い合わせ。フィジカル AIを活用したソフトウェアの開発と現場へのインテグレーション、導入支援、運用設計を行っています。",
+      "あしたのロボティクス株式会社へのお問い合わせ。フィジカルAIの検証・研修のご相談を受け付けています。",
     keywords: [
       "あしたのロボティクス株式会社",
       "あしたのロボティクス",

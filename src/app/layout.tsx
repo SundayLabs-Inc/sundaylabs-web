@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Montserrat, Noto_Sans_JP } from "next/font/google";
+import { headers } from "next/headers";
+import { Geist, Geist_Mono, Inter, Montserrat, Noto_Sans_JP } from "next/font/google";
 import { createRootMetadata } from "@/lib/seo";
 import "./globals.css";
 
@@ -15,6 +16,12 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
@@ -25,21 +32,23 @@ const montserrat = Montserrat({
 const notoSansJp = Noto_Sans_JP({
   variable: "--font-noto-sans-jp",
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["300", "400", "500", "700"],
   display: "swap",
 });
 
 export const metadata: Metadata = createRootMetadata();
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const lang = (await headers()).get("x-locale") === "en" ? "en" : "ja";
+
   return (
     <html
-      lang="ja"
-      className={`${geist.variable} ${geistMono.variable} ${montserrat.variable} ${notoSansJp.variable} antialiased`}
+      lang={lang}
+      className={`${geist.variable} ${geistMono.variable} ${inter.variable} ${montserrat.variable} ${notoSansJp.variable} antialiased`}
     >
       <body className="bg-bg font-sans text-fg antialiased">
         {children}
