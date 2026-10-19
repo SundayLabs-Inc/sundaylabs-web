@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import MediaFrame from "@/components/site/MediaFrame";
 import type { Media } from "@/content/home";
 
-type Place = { title: string; body: string; media: Media };
+type Place = { id?: string; title: string; body: string; media: Media };
 
 export default function PlaceRail({ items, label }: { items: Place[]; label: string }) {
   const rail = useRef<HTMLUListElement>(null);
@@ -48,6 +48,7 @@ export default function PlaceRail({ items, label }: { items: Place[]; label: str
         {items.map((item) => (
           <li
             key={item.title}
+            id={item.id}
             className="w-[78vw] shrink-0 snap-start sm:w-[44vw] lg:w-[calc((100vw-48px-32px)/3.4)]"
           >
             <MediaFrame media={item.media} aspect="aspect-[4/3]" sizes="(min-width: 1024px) 30vw, 78vw" />

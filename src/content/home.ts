@@ -13,9 +13,9 @@ export const brand = {
 };
 
 export const seo = {
-  title: "あしたのロボティクス | フィジカルAIで、あしたをもっと豊かに。",
+  title: "フィジカルAI研修・研究開発基盤構築・共同研究開発 | あしたのロボティクス",
   description:
-    "あしたのロボティクスは、研究開発基盤構築、企業向けのフィジカルAI研修、共同研究開発を通じて、フィジカルAIを社会に実装します。",
+    "あしたのロボティクスは、企業向けのフィジカルAI研修、ロボットラボなどの研究開発基盤構築、VLA・模倣学習・ロボット制御の共同研究開発を通じて、フィジカルAIを社会に実装します。",
 };
 
 export const nav = [
@@ -40,16 +40,19 @@ export const service = {
   body: "ロボットを実機で確かめ、使いこなす人を育てる。フィジカルAIの導入を検討する企業の取り組みを支援します。",
   items: [
     {
+      id: "training",
       title: "フィジカルAI研修",
       body: "導入を担当する方、現場でロボットを扱う方、開発に携わるエンジニアに向けて、ロボットの基礎、安全な扱い方、データ収集と学習の進め方を実機で学ぶ研修を行います。",
       media: { src: "/images/business/training.jpg", alt: "ロボットアームを囲んで学ぶ研修の様子" } as Media,
     },
     {
+      id: "infrastructure",
       title: "研究開発基盤構築",
       body: "御社のスペースに、ロボット・センサー、GPU・計算環境、データ収集・学習環境、評価・検証環境を備えたロボットラボを整えます。",
       media: { src: "/images/rd-infrastructure.jpg", alt: "ロボットアームと開発用の機材が並ぶラボ" } as Media,
     },
     {
+      id: "research",
       title: "共同研究開発",
       body: "VLA・模倣学習、ロボット制御などのフィジカルAI技術を共同で研究開発し、PoC開発と実機検証を進めます。",
       media: { src: "/images/business/research.jpg", alt: "遠隔操作でロボットに動作を教える研究の様子" } as Media,

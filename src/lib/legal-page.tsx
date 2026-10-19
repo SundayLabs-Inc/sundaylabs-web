@@ -11,7 +11,7 @@ export function legalMetadata(doc: LegalDocument, description: string): Metadata
     title: `${meta.title} | あしたのロボティクス`,
     description,
     path: meta.path,
-    noindex: isDraft(doc.key),
+    noindex: isDraft(doc.key) || doc.key === "servicePrivacy" || doc.key === "serviceTerms",
   });
 }
 

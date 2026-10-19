@@ -1,7 +1,6 @@
-import { getApproach } from "@/constants/approach";
-import { getRail } from "@/constants/rail";
 import { getSite, type Locale } from "@/constants/site";
 import { absoluteUrl, getPagePath } from "@/lib/seo";
+import { getSiteContent } from "@/lib/site-content";
 
 function oneLine(value: string): string {
   return value.replace(/\s+/g, " ").trim();
@@ -19,53 +18,57 @@ function companyFacts(locale: Locale): string[] {
 }
 
 function serviceLines(locale: Locale): string[] {
-  const rail = getRail(locale);
   const home = pageUrl(locale, "home");
-  return rail.domains.map(
-    (domain) => `- [${domain.name}](${home}#${domain.id}): ${oneLine(domain.body)}`,
+  return getSiteContent(locale).services.map(
+    (item) => `- [${item.name}](${home}#${item.id}): ${oneLine(item.body)}`,
   );
 }
 
 function faqLines(locale: Locale): string[] {
-  const site = getSite(locale);
   const home = pageUrl(locale, "home");
-  return site.faqs.flatMap((item, index) => [
-    `- [${item.question}](${home}#faq-${index})`,
-    `  ${oneLine(item.answer)}`,
+  return getSiteContent(locale).faqs.flatMap((item, index) => [
+    `- [${item.q}](${home}#faq-${index})`,
+    `  ${oneLine(item.a)}`,
   ]);
 }
 
-function approachLines(locale: Locale): string[] {
-  const approach = getApproach(locale);
-  return approach.cards.map(
-    (card, index) => `${index + 1}. ${card.title}: ${oneLine(card.body)}`,
+function stepLines(locale: Locale): string[] {
+  return getSiteContent(locale).steps.map(
+    (step, index) => `${index + 1}. ${step.title}: ${oneLine(step.body)}`,
   );
 }
 
 function localeBlock(locale: Locale): string {
   const site = getSite(locale);
-  const rail = getRail(locale);
+  const content = getSiteContent(locale);
   const home = pageUrl(locale, "home");
-  const headline = [rail.hero.title, rail.hero.sub].join(locale === "en" ? " " : "");
+  const ja = locale === "ja";
 
   return [
-    locale === "ja" ? "## 日本語" : "## English",
+    ja ? "## 日本語" : "## English",
     "",
-    oneLine(headline),
+    oneLine(content.headline),
     "",
-    oneLine(rail.services.title),
+    oneLine(content.description),
+    "",
+    oneLine(content.intro),
+    "",
+    `### ${site.nav.services}`,
+    ...serviceLines(locale),
+    "",
+    `### ${content.stepsTitle}`,
+    ...stepLines(locale),
+    "",
+    `### ${ja ? "産業領域" : "Industries"}`,
+    content.industries.join(ja ? "、" : ", "),
+    "",
+    `### ${ja ? "ミッション" : "Mission"}`,
+    oneLine(content.mission),
     "",
     `### ${site.company.title}`,
     ...companyFacts(locale),
     "",
-    `### ${site.nav.services}`,
-    oneLine(site.company.rows.find((row) => row.label === (locale === "ja" ? "事業内容" : "Business"))?.value ?? ""),
-    ...serviceLines(locale),
-    "",
-    `### ${getApproach(locale).title}`,
-    ...approachLines(locale),
-    "",
-    `### ${site.nav.faqs}`,
+    "### FAQ",
     ...faqLines(locale),
     "",
     `### ${site.contact.title}`,
@@ -73,30 +76,25 @@ function localeBlock(locale: Locale): string {
     `- [${site.contact.title}](${pageUrl(locale, "contact")})`,
     "",
     "### Pages",
-    `- [${locale === "ja" ? "トップ" : "Home"}](${home}): ${oneLine(rail.seo.description)}`,
+    `- [${ja ? "トップ" : "Home"}](${home}): ${oneLine(content.description)}`,
     `- [${site.company.title}](${pageUrl(locale, "company")}): ${oneLine(site.seo.companyDescription)}`,
     `- [${site.contact.title}](${pageUrl(locale, "contact")}): ${oneLine(site.seo.contactDescription)}`,
     `- [${site.privacy.title}](${pageUrl(locale, "privacy")}): ${oneLine(site.seo.privacyDescription)}`,
-    `- [${getApproach(locale).title}](${home}#schedule)`,
-    `- [${site.nav.faqs}](${home}#faqs)`,
   ].join("\n");
 }
 
 export function buildLlmsTxt(): string {
   const ja = getSite("ja");
   const en = getSite("en");
-  const jaRail = getRail("ja");
 
   return [
     `# ${ja.legalName}`,
     "",
     `> ${oneLine(ja.tagline)}`,
     "",
-    oneLine(jaRail.seo.description),
+    oneLine(getSiteContent("ja").description),
     "",
     `${en.legalName} ${oneLine(en.tagline)}`,
-    "",
-    oneLine(getRail("en").seo.description),
     "",
     localeBlock("ja"),
     "",

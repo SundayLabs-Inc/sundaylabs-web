@@ -1,5 +1,3 @@
-import { getApproach } from "@/constants/approach";
-import { getRail } from "@/constants/rail";
 import { getSite, type Locale } from "@/constants/site";
 import {
   absoluteUrl,
@@ -8,9 +6,11 @@ import {
   OG_IMAGE_HEIGHT,
   OG_IMAGE_PATH,
   OG_IMAGE_WIDTH,
+  OG_IMAGE_ALT,
   type PageKey,
   SITE_URL,
 } from "@/lib/seo";
+import { getSiteContent } from "@/lib/site-content";
 
 type JsonLdProps = {
   locale: Locale;
@@ -50,7 +50,7 @@ function homeUrl(locale: Locale): string {
 
 function organizationSchema(locale: Locale): SchemaNode {
   const site = getSite(locale);
-  const rail = getRail(locale);
+  const content = getSiteContent(locale);
   const ja = getSite("ja");
   const en = getSite("en");
 
@@ -76,10 +76,13 @@ function organizationSchema(locale: Locale): SchemaNode {
     image: absoluteUrl(OG_IMAGE_PATH),
     email: site.email,
     slogan: site.tagline,
-    description: rail.seo.description,
+    description: content.description,
     knowsAbout: unique([
-      rail.productName,
-      ...rail.domains.map((domain) => domain.name),
+      locale === "ja" ? "フィジカルAI" : "Physical AI",
+      ...content.services.map((item) => item.name),
+      locale === "ja" ? "ヒューマノイド" : "humanoid robots",
+      locale === "ja" ? "四足歩行ロボット" : "quadruped robots",
+      locale === "ja" ? "ロボットアーム" : "robot arms",
       "VLA",
       locale === "ja" ? "模倣学習" : "imitation learning",
       locale === "ja" ? "ロボット制御" : "robot control",
@@ -101,6 +104,7 @@ function organizationSchema(locale: Locale): SchemaNode {
       addressCountry: "JP",
     },
     founder: { "@id": FOUNDER_ID },
+    hasOfferCatalog: { "@id": `${homeUrl(locale)}#services` },
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer support",
@@ -125,7 +129,6 @@ function founderSchema(locale: Locale): SchemaNode {
 
 function websiteSchema(locale: Locale): SchemaNode {
   const site = getSite(locale);
-  const rail = getRail(locale);
 
   return {
     "@type": "WebSite",
@@ -133,7 +136,7 @@ function websiteSchema(locale: Locale): SchemaNode {
     url: SITE_URL,
     name: locale === "ja" ? site.legalName : site.nameEn,
     alternateName: unique([site.name, site.nameEn, site.legalName]),
-    description: rail.seo.description,
+    description: getSiteContent(locale).description,
     inLanguage: ["ja-JP", "en-US"],
     publisher: { "@id": ORG_ID },
     copyrightHolder: { "@id": ORG_ID },
@@ -143,9 +146,8 @@ function websiteSchema(locale: Locale): SchemaNode {
 
 function pageName(locale: Locale, page: PageKey): string {
   const site = getSite(locale);
-  const rail = getRail(locale);
   const names: Record<PageKey, string> = {
-    home: rail.seo.title,
+    home: getSiteContent(locale).title,
     company: site.company.title,
     privacy: site.privacy.title,
     contact: site.contact.title,
@@ -155,9 +157,8 @@ function pageName(locale: Locale, page: PageKey): string {
 
 function pageDescription(locale: Locale, page: PageKey): string {
   const site = getSite(locale);
-  const rail = getRail(locale);
   const descriptions: Record<PageKey, string> = {
-    home: rail.seo.description,
+    home: getSiteContent(locale).description,
     company: site.seo.companyDescription,
     privacy: site.seo.privacyDescription,
     contact: site.seo.contactDescription,
@@ -166,82 +167,77 @@ function pageDescription(locale: Locale, page: PageKey): string {
 }
 
 function serviceSchemas(locale: Locale): SchemaNode[] {
-  const site = getSite(locale);
-  const rail = getRail(locale);
+  const content = getSiteContent(locale);
   const home = homeUrl(locale);
-  const business = site.company.rows.find((row) =>
-    locale === "ja" ? row.label === "事業内容" : row.label === "Business",
-  )?.value;
 
-  return rail.domains.map((domain) => ({
+  return content.services.map((item) => ({
     "@type": "Service",
-    "@id": `${home}#service-${domain.id}`,
-    name: domain.name,
-    description: domain.body,
-    serviceType: business,
-    url: `${home}#${domain.id}`,
+    "@id": `${home}#service-${item.id}`,
+    name: item.name,
+    description: item.body,
+    serviceType: item.name,
+    category: locale === "ja" ? "フィジカルAI" : "Physical AI",
+    url: `${home}#${item.id}`,
     provider: { "@id": ORG_ID },
-    areaServed: {
-      "@type": "Country",
-      name: "Japan",
-    },
+    audience: { "@type": "BusinessAudience", name: locale === "ja" ? "法人" : "Businesses" },
+    areaServed: { "@type": "Country", name: "Japan" },
     inLanguage: language(locale),
   }));
 }
 
 function offerCatalogSchema(locale: Locale): SchemaNode {
   const site = getSite(locale);
-  const rail = getRail(locale);
+  const content = getSiteContent(locale);
   const home = homeUrl(locale);
 
   return {
     "@type": "OfferCatalog",
     "@id": `${home}#services`,
     name: site.nav.services,
-    itemListElement: rail.domains.map((domain, index) => ({
+    itemListElement: content.services.map((item, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      name: domain.name,
-      item: { "@id": `${home}#service-${domain.id}` },
+      name: item.name,
+      item: { "@id": `${home}#service-${item.id}` },
     })),
   };
 }
 
 function approachSchema(locale: Locale): SchemaNode {
-  const approach = getApproach(locale);
+  const content = getSiteContent(locale);
   const home = homeUrl(locale);
 
   return {
     "@type": "ItemList",
     "@id": `${home}#approach`,
-    name: approach.title,
-    url: `${home}#schedule`,
-    itemListElement: approach.cards.map((card, index) => ({
+    name: content.stepsTitle,
+    url: `${home}#flow`,
+    itemListElement: content.steps.map((step, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      name: card.title,
-      description: card.body,
+      name: step.title,
+      description: step.body,
     })),
   };
 }
 
 function faqSchema(locale: Locale): SchemaNode {
-  const site = getSite(locale);
+  const content = getSiteContent(locale);
   const home = homeUrl(locale);
 
   return {
     "@type": "FAQPage",
     "@id": `${home}#faq`,
-    url: `${home}#faqs`,
+    url: `${home}#faq`,
     inLanguage: language(locale),
     isPartOf: { "@id": `${home}#webpage` },
-    mainEntity: site.faqs.map((item, index) => ({
+    mainEntity: content.faqs.map((item, index) => ({
       "@type": "Question",
       "@id": `${home}#faq-${index}`,
-      name: item.question,
+      name: item.q,
       acceptedAnswer: {
         "@type": "Answer",
-        text: item.answer,
+        text: item.a,
       },
     })),
   };
@@ -269,6 +265,7 @@ function webPageSchema(locale: Locale, page: PageKey): SchemaNode {
       url: absoluteUrl(OG_IMAGE_PATH),
       width: OG_IMAGE_WIDTH,
       height: OG_IMAGE_HEIGHT,
+      caption: OG_IMAGE_ALT,
     },
   };
 

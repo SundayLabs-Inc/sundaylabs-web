@@ -9,6 +9,7 @@ export const metadata: Metadata = createSiteMetadata({
   description:
     "東京近郊で、ロボットによる家事代行サービスのウェイトリストへのご登録を受け付けています。メールアドレスとお住まいの地域でご登録いただけます。",
   path: "/waitlist",
+  noindex: true,
 });
 
 export default function WaitlistPage() {

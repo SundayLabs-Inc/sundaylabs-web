@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { getRail } from "@/constants/rail";
 import { getSite, site, type Locale } from "@/constants/site";
-import { brand, seo as homeSeo } from "@/content/home";
+import { brand, hero, seo as homeSeo } from "@/content/home";
+import { getSiteContent } from "@/lib/site-content";
 
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
@@ -10,9 +11,10 @@ export const SITE_URL =
 export const CONTENT_UPDATED = site.news.items[0].datetime;
 
 export const LOGO_PATH = "/images/logo-mark.png";
-export const OG_IMAGE_PATH = "/images/technology-poster.jpg";
-export const OG_IMAGE_WIDTH = 1280;
-export const OG_IMAGE_HEIGHT = 720;
+export const OG_IMAGE_PATH = "/images/og.jpg";
+export const OG_IMAGE_WIDTH = 1200;
+export const OG_IMAGE_HEIGHT = 630;
+export const OG_IMAGE_ALT = hero.media.alt;
 
 export type PageKey = "home" | "company" | "privacy" | "contact";
 
@@ -53,11 +55,10 @@ export function pageAlternates(page: PageKey, locale: Locale) {
 
 function pageTitle(locale: Locale, page: PageKey): string {
   const site = getSite(locale);
-  const rail = getRail(locale);
 
   switch (page) {
     case "home":
-      return rail.seo.title;
+      return getSiteContent(locale).title;
     case "company":
       return `${site.legalName} | ${site.company.title}`;
     case "privacy":
@@ -69,11 +70,10 @@ function pageTitle(locale: Locale, page: PageKey): string {
 
 function pageDescription(locale: Locale, page: PageKey): string {
   const site = getSite(locale);
-  const rail = getRail(locale);
 
   switch (page) {
     case "home":
-      return rail.seo.description;
+      return getSiteContent(locale).description;
     case "company":
       return site.seo.companyDescription;
     case "privacy":
@@ -95,7 +95,7 @@ export function createPageMetadata(
   const url = absoluteUrl(path);
   const ogImage = absoluteUrl(OG_IMAGE_PATH);
   const keywords =
-    page === "home" ? [...rail.seo.keywords] : [...site.seo.keywords];
+    page === "home" ? getSiteContent(locale).keywords : [...site.seo.keywords];
 
   return {
     title: { absolute: title },
@@ -120,7 +120,7 @@ export function createPageMetadata(
           url: ogImage,
           width: OG_IMAGE_WIDTH,
           height: OG_IMAGE_HEIGHT,
-          alt: site.hero.alt,
+          alt: OG_IMAGE_ALT,
         },
       ],
     },
@@ -169,8 +169,9 @@ export function createSiteMetadata({
       siteName: brand.legalName,
       title,
       description,
+      images: [{ url: absoluteUrl(OG_IMAGE_PATH), width: OG_IMAGE_WIDTH, height: OG_IMAGE_HEIGHT, alt: OG_IMAGE_ALT }],
     },
-    twitter: { card: "summary_large_image", title, description },
+    twitter: { card: "summary_large_image", title, description, images: [absoluteUrl(OG_IMAGE_PATH)] },
     robots: noindex
       ? { index: false, follow: false, googleBot: { index: false, follow: false } }
       : { index: true, follow: true },
@@ -214,7 +215,7 @@ export function createRootMetadata(): Metadata {
           url: absoluteUrl(OG_IMAGE_PATH),
           width: OG_IMAGE_WIDTH,
           height: OG_IMAGE_HEIGHT,
-          alt: site.hero.alt,
+          alt: OG_IMAGE_ALT,
         },
       ],
     },

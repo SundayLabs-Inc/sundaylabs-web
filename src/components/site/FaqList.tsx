@@ -1,8 +1,8 @@
 export default function FaqList({ items }: { items: { q: string; a: string }[] }) {
   return (
     <div className="border-t border-line">
-      {items.map((item) => (
-        <details key={item.q} className="site-faq border-b border-line">
+      {items.map((item, index) => (
+        <details key={item.q} id={`faq-${index}`} className="site-faq border-b border-line">
           <summary className="flex cursor-pointer list-none items-start justify-between gap-6 py-6 text-base font-medium leading-relaxed lg:text-lg">
             <span>{item.q}</span>
             <svg
