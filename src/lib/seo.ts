@@ -203,10 +203,10 @@ export function createRootMetadata(): Metadata {
     },
     icons: {
       icon: [
-        { url: "/icon.svg?v=5", type: "image/svg+xml" },
-        { url: "/icon.png?v=5", type: "image/png" },
+        { url: "/icon.svg?v=8", type: "image/svg+xml" },
+        { url: "/icon.png?v=8", type: "image/png" },
       ],
-      apple: [{ url: "/apple-icon.png?v=5", type: "image/png" }],
+      apple: [{ url: "/apple-icon.png?v=8", type: "image/png" }],
     },
     openGraph: {
       siteName: site.legalName,
