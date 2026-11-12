@@ -8,7 +8,7 @@ export const brand = {
 
 export const hero = {
   title: "所有からの解放、暮らしの拡張。",
-  lead: "マンションの中で、家電や生活ガジェットを必要なときだけ。SundayLabsは、マンションの共用スペースで借りて返せるシェアリングサービスをつくっています。",
+  lead: "マンションの中で、家電や生活ガジェットを必要なときだけ。SundayLabsは、マンションの共用スペースで借りて返せるシェアリングサービスです。",
 };
 
 export const intro = {
@@ -79,7 +79,7 @@ export const closing = {
 
 export const seo = {
   title: "SundayLabs（サンデーラボ）｜マンションの家電シェア・レンタル",
-  description: "SundayLabs（サンデーラボ）は、マンションの共用スペースで家電をシェアするサービスをつくっています。マンションオーナー・管理会社の皆さまから、導入のご相談を受け付けています。",
+  description: "SundayLabs（サンデーラボ）は、マンションの共用スペースで家電をシェアするサービスです。マンションオーナー・管理会社の皆さまから、導入のご相談を受け付けています。",
 };
 
 export const nav = [
