@@ -61,7 +61,6 @@ function organizationSchema(locale: Locale): SchemaNode {
     alternateName: unique([
       brand.name,
       "SundayLabs",
-      "サンデーラボ",
       brand.legalName,
       brand.legalNameEn,
     ]),
@@ -126,7 +125,7 @@ function websiteSchema(locale: Locale): SchemaNode {
     "@id": WEBSITE_ID,
     url: SITE_URL,
     name: site.legalName,
-    alternateName: unique(["SundayLabs", "サンデーラボ", site.name, site.nameEn, site.legalName]),
+    alternateName: unique(["SundayLabs", site.name, site.nameEn, site.legalName]),
     description: getSiteContent(locale).description,
     inLanguage: ["ja-JP"],
     publisher: { "@id": ORG_ID },

@@ -78,8 +78,8 @@ export const closing = {
 };
 
 export const seo = {
-  title: "SundayLabs（サンデーラボ）｜マンションの家電シェア・レンタル",
-  description: "SundayLabs（サンデーラボ）は、マンションの共用スペースで家電をシェアするサービスです。マンションオーナー・管理会社の皆さまから、導入のご相談を受け付けています。",
+  title: "SundayLabs｜マンションの家電シェア・レンタル",
+  description: "SundayLabsは、マンションの共用スペースで家電をシェアするサービスです。マンションオーナー・管理会社の皆さまから、導入のご相談を受け付けています。",
 };
 
 export const nav = [
