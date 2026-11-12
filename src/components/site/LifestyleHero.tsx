@@ -8,7 +8,7 @@ export default function LifestyleHero() {
       <h1 id="hero-heading">{hero.title.split("、").map((line, index) =>
         <span key={line}>{line}{index === 0 ? "、" : ""}</span>)}
       </h1>
-      <p>SundayLabsは、マンションの共用スペースで、必要なときに家電を借りられるシェアサービスです。<br />モノを増やさず、暮らしの楽しみと可能性を広げます。</p>
+      <p>SundayLabs（サンデーラボ）は、マンションの共用スペースで、必要なときに家電を借りられるシェアサービスをつくっています。<br />モノを増やさず、暮らしの楽しみと可能性を広げます。</p>
     </div>
     <div className={styles.lifestyleMedia}>
       <Image className={styles.lifestyleVideo}

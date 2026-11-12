@@ -7,11 +7,11 @@ export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
   "https://sundaylabs.co.jp";
 
-export const CONTENT_UPDATED = "2026-11-06";
+export const CONTENT_UPDATED = "2026-11-12";
 
-export const OG_IMAGE_PATH = "/images/logo-square.png";
-export const OG_IMAGE_WIDTH = 2048;
-export const OG_IMAGE_HEIGHT = 2048;
+export const OG_IMAGE_PATH = "/images/og-sundaylabs.png";
+export const OG_IMAGE_WIDTH = 1200;
+export const OG_IMAGE_HEIGHT = 630;
 export const OG_IMAGE_ALT = hero.title;
 
 export type PageKey = "home" | "company" | "privacy" | "contact";
@@ -127,6 +127,7 @@ export function createSiteMetadata({
   title,
   description,
   path,
+  noindex = false,
 }: {
   title: string;
   description: string;
@@ -139,6 +140,7 @@ export function createSiteMetadata({
     title: { absolute: title },
     description,
     alternates: { canonical: url },
+    robots: noindex ? { index: false, follow: true } : undefined,
     openGraph: {
       type: "website",
       locale: "ja_JP",
@@ -157,6 +159,7 @@ export function createRootMetadata(): Metadata {
 
   return {
     metadataBase: new URL(SITE_URL),
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
     title: {
       default: homeSeo.title,
       template: "%s",

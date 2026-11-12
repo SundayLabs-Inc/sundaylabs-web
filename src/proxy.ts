@@ -12,7 +12,11 @@ export function proxy(request: NextRequest) {
     .toLowerCase()
     .replace(/\.$/, "");
 
-  if (!retiredHosts.has(host)) return NextResponse.next();
+  if (!retiredHosts.has(host)) {
+    const response = NextResponse.next();
+    if (host.endsWith(".vercel.app")) response.headers.set("X-Robots-Tag", "noindex");
+    return response;
+  }
 
   // Keep crawling available so search engines can observe the permanent removal.
   if (request.nextUrl.pathname === "/robots.txt") {

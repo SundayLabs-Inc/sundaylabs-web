@@ -22,7 +22,7 @@ type SchemaNode = Record<string, unknown>;
 
 const ORG_ID = `${SITE_URL}/#organization`;
 const WEBSITE_ID = `${SITE_URL}/#website`;
-const FOUNDER_ID = `${SITE_URL}/#founder`;
+const REPRESENTATIVE_ID = `${SITE_URL}/#representative`;
 
 function language(locale: Locale): string {
   return locale === "ja" ? "ja-JP" : "en-US";
@@ -60,6 +60,8 @@ function organizationSchema(locale: Locale): SchemaNode {
     legalName: site.legalName,
     alternateName: unique([
       brand.name,
+      "SundayLabs",
+      "サンデーラボ",
       brand.legalName,
       brand.legalNameEn,
     ]),
@@ -92,7 +94,7 @@ function organizationSchema(locale: Locale): SchemaNode {
       postalCode: "150-0044",
       addressCountry: "JP",
     },
-    founder: { "@id": FOUNDER_ID },
+    employee: { "@id": REPRESENTATIVE_ID },
     hasOfferCatalog: { "@id": `${homeUrl(locale)}#services` },
     contactPoint: {
       "@type": "ContactPoint",
@@ -105,11 +107,11 @@ function organizationSchema(locale: Locale): SchemaNode {
   };
 }
 
-function founderSchema(locale: Locale): SchemaNode {
+function representativeSchema(locale: Locale): SchemaNode {
   const label = locale === "ja" ? "代表者" : "Representative";
   return {
     "@type": "Person",
-    "@id": FOUNDER_ID,
+    "@id": REPRESENTATIVE_ID,
     name: representativeName(locale),
     jobTitle: label,
     worksFor: { "@id": ORG_ID },
@@ -124,7 +126,7 @@ function websiteSchema(locale: Locale): SchemaNode {
     "@id": WEBSITE_ID,
     url: SITE_URL,
     name: site.legalName,
-    alternateName: unique([site.name, site.nameEn, site.legalName]),
+    alternateName: unique(["SundayLabs", "サンデーラボ", site.name, site.nameEn, site.legalName]),
     description: getSiteContent(locale).description,
     inLanguage: ["ja-JP"],
     publisher: { "@id": ORG_ID },
@@ -156,39 +158,24 @@ function pageDescription(locale: Locale, page: PageKey): string {
 }
 
 function serviceSchemas(locale: Locale): SchemaNode[] {
-  const content = getSiteContent(locale);
-  const home = homeUrl(locale);
-
-  return content.services.map((item) => ({
+  return [{
     "@type": "Service",
-    "@id": `${home}#service-${item.id}`,
-    name: item.name,
-    description: item.body,
-    serviceType: item.name,
-    category: business.name,
-    url: `${home}#${item.id}`,
+    "@id": `${SITE_URL}/#appliance-sharing`,
+    name: "マンション内の家電シェア・レンタル",
+    description: getSiteContent(locale).description,
+    serviceType: "マンション共用スペースの家電シェア",
+    url: absoluteUrl("/appliance-sharing"),
     provider: { "@id": ORG_ID },
-    audience: { "@type": "BusinessAudience", name: "法人" },
-    areaServed: { "@type": "Country", name: "Japan" },
-    inLanguage: language(locale),
-  }));
+    audience: { "@type": "Audience", audienceType: "マンションオーナー・管理会社・入居者" },
+  }];
 }
 
 function offerCatalogSchema(locale: Locale): SchemaNode {
-  const site = getSite(locale);
-  const content = getSiteContent(locale);
-  const home = homeUrl(locale);
-
   return {
     "@type": "OfferCatalog",
-    "@id": `${home}#services`,
-    name: site.nav.services,
-    itemListElement: content.services.map((item, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: item.name,
-      item: { "@id": `${home}#service-${item.id}` },
-    })),
+    "@id": `${homeUrl(locale)}#services`,
+    name: "サービス案内",
+    itemListElement: [{ "@type": "ListItem", position: 1, item: { "@id": `${SITE_URL}/#appliance-sharing` } }],
   };
 }
 
@@ -268,7 +255,7 @@ export default function JsonLd({ locale, page }: JsonLdProps) {
 
   const graph = [
     organizationSchema(locale),
-    founderSchema(locale),
+    representativeSchema(locale),
     websiteSchema(locale),
     webPageSchema(locale, page),
     breadcrumbSchema(locale, page),
