@@ -7,6 +7,16 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      ...[
+        "ashitanorobotics.co.jp",
+        "www.ashitanorobotics.co.jp",
+        "ashitano-robotics-v1.vercel.app",
+      ].map((host) => ({
+        source: "/:path*",
+        has: [{ type: "host" as const, value: host }],
+        destination: "https://sundaylabs.co.jp/:path*",
+        permanent: true,
+      })),
       { source: "/service", destination: "/", permanent: true },
       { source: "/service/:path*", destination: "/", permanent: true },
     ];
