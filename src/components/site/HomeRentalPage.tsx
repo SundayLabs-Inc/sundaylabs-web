@@ -14,7 +14,6 @@ export default function HomeRentalPage() {
       <section id="service" aria-labelledby="service-heading" className={styles.section}>
         <div className={styles.sectionHead}>
           <h2 id="service-heading">マンションの家電シェアで、身軽な暮らし</h2>
-          <p>必要な家電を、マンションの共用スペースで借りられます。買い揃えずに使えると、暮らしが少し身軽になります。</p>
         </div>
         <div className={`${styles.lineup} ${styles.benefitCards}`}>
           {[
