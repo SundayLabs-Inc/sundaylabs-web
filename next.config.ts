@@ -7,18 +7,15 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      ...[
-        "ashitanorobotics.co.jp",
-        "www.ashitanorobotics.co.jp",
-        "ashitano-robotics-v1.vercel.app",
-      ].map((host) => ({
-        source: "/:path*",
-        has: [{ type: "host" as const, value: host }],
-        destination: "https://sundaylabs.co.jp/:path*",
+      ...["/service", "/service/:path*"].map((source) => ({
+        source,
+        destination: "/",
         permanent: true,
+        missing: [{
+          type: "host" as const,
+          value: "(?:www\\.)?ashitanorobotics\\.co\\.jp|ashitano-robotics-v1\\.vercel\\.app",
+        }],
       })),
-      { source: "/service", destination: "/", permanent: true },
-      { source: "/service/:path*", destination: "/", permanent: true },
     ];
   },
   async headers() {
