@@ -35,7 +35,6 @@ export default function HomeRentalPage() {
       <section id="how" aria-labelledby="how-heading" className={`${styles.section} ${styles.split} ${styles.how}`}>
         <div className={styles.splitCopy}>
           <h2 id="how-heading">{feature.title}</h2>
-          <p>{feature.body}</p>
           <ol className={styles.steps}>
             {feature.steps.map(step => <li key={step.id}>
               <div><h3>{step.title}</h3><p>{step.body}</p></div>
@@ -56,7 +55,6 @@ export default function HomeRentalPage() {
         </div>
         <div className={styles.splitCopy}>
           <h2 id="owners-heading">{owners.title}</h2>
-          <p>{owners.body}</p>
           <ul className={styles.editorialList}>{owners.items.map(item => <li key={item.title}>
             <h3>{item.title}</h3><p>{item.body}</p>
           </li>)}</ul>
@@ -66,14 +64,13 @@ export default function HomeRentalPage() {
       <section id="operation" aria-labelledby="operation-heading" className={`${styles.section} ${styles.operation}`}>
         <div className={styles.operationIntro}>
           <h2 id="operation-heading">{operation.title}</h2>
-          <p>{operation.body}</p>
         </div>
         <OperationShowcase />
       </section>
 
       <section id="flow" aria-labelledby="flow-heading" className={`${styles.section} ${styles.flowSection}`}>
         <div className={styles.flowIntro}>
-          <h2 id="flow-heading">{flow.title}</h2><p>{flow.body}</p>
+          <h2 id="flow-heading">{flow.title}</h2>
         </div>
         <ol className={styles.flow}>
           {flow.steps.map(step => <li key={step.id} id={step.id}>
@@ -88,7 +85,7 @@ export default function HomeRentalPage() {
       </section>
 
       <section aria-labelledby="closing-heading" className={styles.closing}>
-        <div><h2 id="closing-heading">{closing.title}</h2><p>{closing.body}</p></div>
+        <div><h2 id="closing-heading">{closing.title}</h2></div>
         <Link href={contactCta.href} className={styles.button}>{contactCta.label}</Link>
       </section>
     </div>

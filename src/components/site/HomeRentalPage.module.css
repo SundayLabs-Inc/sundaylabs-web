@@ -235,10 +235,14 @@
 .lifestyleCopy h1 span { display: inline-block; }
 .lifestyleCopy p { max-width: 880px; margin: 18px auto 0; font-size: 16px; line-height: 1.9; color: var(--dark); }
 .lifestyleMedia { position: relative; width: calc(100% - 2 * var(--site-inset)); margin-inline: var(--site-inset); aspect-ratio: 16 / 9; overflow: hidden; border-radius: 12px; }
-.lifestyleVideo { object-fit: cover; object-position: center; }
+.lifestyleMedia picture { display: block; width: 100%; height: 100%; }
+.lifestyleVideo { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
 @media (max-width: 767px) {
   .lifestyleCopy { padding: 32px 20px; }
   .lifestyleCopy h1 { font-size: clamp(28px, 7.5vw, 48px); }
   .lifestyleCopy p { margin-top: 16px; font-size: 14px; }
-  .lifestyleMedia { aspect-ratio: 3 / 2; }
+  .lifestyleMedia { aspect-ratio: 4 / 5; }
+  .benefitImage, .how .portraitMedia, .supportMedia { aspect-ratio: 3 / 2; height: auto; min-height: 0; }
+  .lockerLineup img { aspect-ratio: 3 / 2; object-fit: contain; }
+  .sectionHead { margin-bottom: 28px; }
 }
