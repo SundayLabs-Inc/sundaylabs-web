@@ -179,10 +179,10 @@ export function createRootMetadata(): Metadata {
     },
     icons: {
       icon: [
-        { url: "/icon.svg?v=13", type: "image/svg+xml" },
-        { url: "/icon.png?v=13", type: "image/png" },
+        { url: "/images/sl-favicon.svg", type: "image/svg+xml" },
+        { url: "/images/sl-favicon.png", type: "image/png" },
       ],
-      apple: [{ url: "/apple-icon.png?v=13", type: "image/png" }],
+      apple: [{ url: "/images/sl-apple-icon.png", type: "image/png" }],
     },
     openGraph: {
       siteName: site.legalName,

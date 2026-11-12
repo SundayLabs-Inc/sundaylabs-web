@@ -22,7 +22,6 @@ export default function ServiceGuide({ guideKey }: { guideKey: GuideKey }) {
       <nav aria-label="パンくずリスト" className="mb-8 text-sm"><Link href="/" className="underline underline-offset-4">SundayLabs</Link><span aria-hidden="true"> / </span><span>{guide.title}</span></nav>
       <h1 className="text-3xl leading-snug font-bold lg:text-5xl">{guide.title}</h1>
       <p className="mt-8 text-lg leading-loose">{guide.lead}</p>
-      <p className="mt-6 rounded-2xl bg-[#f3f3f0] p-5 text-sm leading-relaxed">現在は実証導入の準備段階です。提供開始時期、設置する家電、料金、利用条件は、導入する物件ごとにご案内します。</p>
       {guide.sections.map(section => <section key={section.title} className="mt-12">
         <h2 className="text-2xl leading-snug font-bold">{section.title}</h2>
         <p className="mt-5 leading-loose">{section.body}</p>
