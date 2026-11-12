@@ -164,7 +164,7 @@ function serviceSchemas(locale: Locale): SchemaNode[] {
     name: "マンション内の家電シェア・レンタル",
     description: getSiteContent(locale).description,
     serviceType: "マンション共用スペースの家電シェア",
-    url: absoluteUrl("/appliance-sharing"),
+    url: absoluteUrl("/#service"),
     provider: { "@id": ORG_ID },
     audience: { "@type": "Audience", audienceType: "マンションオーナー・管理会社・入居者" },
   }];

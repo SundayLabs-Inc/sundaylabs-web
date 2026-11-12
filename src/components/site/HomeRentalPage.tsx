@@ -15,7 +15,6 @@ export default function HomeRentalPage() {
         <div className={styles.sectionHead}>
           <h2 id="service-heading">マンションの家電シェアで、身軽な暮らし</h2>
           <p>必要な家電を、マンションの共用スペースで借りられます。買い揃えずに使えると、暮らしが少し身軽になります。</p>
-          <Link href="/appliance-sharing" className="underline underline-offset-4">家電シェア・レンタルの仕組みを詳しく見る</Link>
         </div>
         <div className={`${styles.lineup} ${styles.benefitCards}`}>
           {[
@@ -59,7 +58,6 @@ export default function HomeRentalPage() {
         <div className={styles.splitCopy}>
           <h2 id="owners-heading">{owners.title}</h2>
           <p>{owners.body}</p>
-          <Link href="/for-property-owners" className="underline underline-offset-4">設置条件・費用・運用分担を確認する</Link>
           <ul className={styles.editorialList}>{owners.items.map(item => <li key={item.title}>
             <h3>{item.title}</h3><p>{item.body}</p>
           </li>)}</ul>

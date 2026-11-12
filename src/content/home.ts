@@ -79,7 +79,7 @@ export const closing = {
 
 export const seo = {
   title: "SundayLabs（サンデーラボ）｜マンションの家電シェア・レンタル",
-  description: "マンションの共用スペースで家電を借りて返すシェアリングサービス。SundayLabs（サンデーラボ）が、家電ロッカーの設置・運用、管理会社との業務分担をご提案します。マンションオーナー・管理会社の皆さまから導入のご相談を受け付けています。",
+  description: "SundayLabs（サンデーラボ）は、マンションの共用スペースで家電をシェアするサービスをつくっています。マンションオーナー・管理会社の皆さまから、導入のご相談を受け付けています。",
 };
 
 export const nav = [
@@ -90,8 +90,6 @@ export const nav = [
 ];
 export const footerNav = [
   ...nav,
-  { label: "家電シェアの仕組み", href: "/appliance-sharing" },
-  { label: "オーナー・管理会社向け導入案内", href: "/for-property-owners" },
   { label: "運用", href: "/#operation" },
   { label: "よくある質問", href: "/#faq" },
   { label: "会社概要", href: "/company" },

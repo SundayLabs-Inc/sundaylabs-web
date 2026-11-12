@@ -19,8 +19,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const entries: Entry[] = [
     { path: "/", priority: 1, changeFrequency: "monthly" },
-    { path: "/appliance-sharing", priority: 0.9, changeFrequency: "monthly" },
-    { path: "/for-property-owners", priority: 0.9, changeFrequency: "monthly" },
     { path: "/company", priority: 0.6, changeFrequency: "yearly" },
     { path: "/contact", priority: 0.5, changeFrequency: "yearly" },
     ...legal,
