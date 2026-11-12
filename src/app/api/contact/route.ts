@@ -1,9 +1,9 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 
-const CONTACT_TO = process.env.CONTACT_TO ?? "contact@ashitanorobotics.co.jp";
+const CONTACT_TO = process.env.CONTACT_TO ?? "contact@sundaylabs.co.jp";
 const RESEND_FROM =
-  process.env.RESEND_FROM ?? "Ashitano Robotics <onboarding@resend.dev>";
+  process.env.RESEND_FROM ?? "SundayLabs <onboarding@resend.dev>";
 
 type ContactPayload = {
   email?: string;

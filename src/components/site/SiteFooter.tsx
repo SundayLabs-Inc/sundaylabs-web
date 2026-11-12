@@ -1,42 +1,57 @@
 import Link from "next/link";
-import InteractiveFooterCanvas from "@/components/InteractiveFooterCanvas";
-import FooterMotion from "@/components/site/FooterMotion";
 import { launch } from "@/config/launch";
 import { legalDocuments } from "@/config/legal";
-import { brand, nav, contactCta } from "@/content/home";
-import "@/components/footer-motion.css";
+import Wordmark from "@/components/site/Wordmark";
+import { getSite } from "@/constants/site";
+import { brand, footerNav, contactCta } from "@/content/home";
 
 export default function SiteFooter() {
-  const links = [
-    contactCta,
-    ...nav.filter((link) => link.href === "/company"),
-    { label: legalDocuments.privacy.title, href: legalDocuments.privacy.path },
-    { label: legalDocuments.terms.title, href: legalDocuments.terms.path },
-    ...(launch.legalNoticePublished
-      ? [{ label: legalDocuments.legalNotice.title, href: legalDocuments.legalNotice.path }]
-      : []),
+  const { company } = getSite("ja");
+  const address = company.rows.find((row) => row.label === "所在地")?.value.replace(/\n/g, " ");
+  const legal = [
+    legalDocuments.privacy,
+    legalDocuments.terms,
+    ...(launch.legalNoticePublished ? [legalDocuments.legalNotice] : []),
   ];
 
   return (
-    <footer className="site-footer-shell" data-header-dark="">
-      <FooterMotion />
-      <div className="site-footer">
-        <InteractiveFooterCanvas />
-        <div className="site-footer-main">
-          <Link href="/" className="site-footer-brand site-footer-logo">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={brand.logo.src} width={brand.logo.width} height={brand.logo.height} alt={brand.name} />
-          </Link>
-          <nav className="site-footer-nav" aria-label="フッター">
-            {links.map((link) => (
-              <Link key={link.href} href={link.href} className="site-footer-link">
-                <span className="site-footer-link-dot" aria-hidden="true" />
-                <span>{link.label}</span>
-              </Link>
+    <footer className="site-content bg-[#e73b09] pt-14 pb-10 text-white lg:pt-20">
+      <div>
+        <nav aria-label="フッター">
+          <ul className="grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4 lg:grid-cols-5">
+            {[...footerNav, contactCta].map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className="text-sm font-bold transition-opacity hover:opacity-60">
+                  {link.label}
+                </Link>
+              </li>
             ))}
-          </nav>
+          </ul>
+        </nav>
+
+        <div className="mt-20 lg:mt-28">
+          <Link href="/" className="block text-white">
+            <Wordmark name={brand.name} className="h-auto w-full max-w-[920px]" />
+          </Link>
+          <p className="mt-6 text-sm leading-[1.8]">
+            {brand.legalName}
+            <br />
+            {address}
+          </p>
         </div>
-        <p className="site-footer-copy">{brand.copyright}</p>
+
+        <div className="mt-10 flex flex-col-reverse gap-6 pt-8 lg:flex-row lg:items-center lg:justify-between">
+          <p className="text-[11px]">{brand.copyright}</p>
+          <ul className="flex flex-wrap gap-x-6 gap-y-2">
+            {legal.map((doc) => (
+              <li key={doc.path}>
+                <Link href={doc.path} className="text-xs transition-opacity hover:opacity-60">
+                  {doc.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </footer>
   );

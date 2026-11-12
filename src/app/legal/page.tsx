@@ -5,7 +5,7 @@ import { LegalPage, legalMetadata } from "@/lib/legal-page";
 
 export const metadata = legalMetadata(
   legalNotice,
-  "あしたのロボティクス株式会社の特定商取引法に基づく表記です。",
+  "SundayLabs株式会社の特定商取引法に基づく表記です。",
 );
 
 export default function Page() {

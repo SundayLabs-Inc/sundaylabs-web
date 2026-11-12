@@ -1,4 +1,4 @@
-import { operator, serviceOperations as ops } from "@/config/legal";
+import { operator } from "@/config/legal";
 import { orPending, type LegalDocument } from "@/content/legal/types";
 
 const UNSET = "未定（公開前に記載）";
@@ -19,13 +19,12 @@ export const legalNotice: LegalDocument = {
               ["所在地", `${operator.postalCode} ${operator.address}`],
               ["電話番号", orPending(operator.phone, UNSET)],
               ["メールアドレス", operator.email],
-              ["販売価格（役務の対価）", orPending(ops.pricing, UNSET)],
+              ["販売価格（役務の対価）", UNSET],
               ["役務の対価以外に必要な料金", "インターネット接続に必要な通信料はお客様のご負担となります。"],
-              ["支払方法", orPending(ops.paymentMethods, UNSET)],
+              ["支払方法", UNSET],
               ["支払時期", UNSET],
-              ["役務の提供時期", "個別条件で定める実施日時"],
-              ["申込みの撤回・解除", orPending(ops.cancellationPolicy, UNSET)],
-              ["提供地域", orPending(ops.serviceArea, UNSET)],
+              ["役務の提供時期", UNSET],
+              ["申込みの撤回・解除", UNSET],
             ],
           },
         },

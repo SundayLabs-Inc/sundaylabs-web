@@ -1,49 +1,41 @@
 import type { Metadata } from "next";
-import { getRail } from "@/constants/rail";
-import { getSite, site, type Locale } from "@/constants/site";
-import { brand, hero, seo as homeSeo } from "@/content/home";
+import { getSite, type Locale } from "@/constants/site";
+import { brand, business, hero, seo as homeSeo } from "@/content/home";
 import { getSiteContent } from "@/lib/site-content";
 
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
-  "https://ashitanorobotics.co.jp";
+  "https://sundaylabs.co.jp";
 
-export const CONTENT_UPDATED = site.news.items[0].datetime;
+export const CONTENT_UPDATED = "2026-11-06";
 
-export const LOGO_PATH = "/images/logo-mark.png";
-export const OG_IMAGE_PATH = "/images/og.jpg";
-export const OG_IMAGE_WIDTH = 1200;
-export const OG_IMAGE_HEIGHT = 630;
-export const OG_IMAGE_ALT = hero.media.alt;
+export const OG_IMAGE_PATH = "/images/logo-square.png";
+export const OG_IMAGE_WIDTH = 2048;
+export const OG_IMAGE_HEIGHT = 2048;
+export const OG_IMAGE_ALT = hero.title;
 
 export type PageKey = "home" | "company" | "privacy" | "contact";
 
-const PAGE_PATHS: Record<PageKey, Record<Locale, string>> = {
-  home: { ja: "/", en: "/en" },
-  company: { ja: "/company", en: "/en/company" },
-  privacy: { ja: "/privacy", en: "/en/privacy" },
-  contact: { ja: "/contact", en: "/en/contact" },
+const PAGE_PATHS: Record<PageKey, string> = {
+  home: "/",
+  company: "/company",
+  privacy: "/privacy",
+  contact: "/contact",
 };
 
-export function getPagePath(locale: Locale, page: PageKey): string {
-  return PAGE_PATHS[page][locale];
+export function getPagePath(_locale: Locale, page: PageKey): string {
+  return PAGE_PATHS[page];
 }
 
 export function absoluteUrl(path: string): string {
   return `${SITE_URL}${path}`;
 }
 
-export function pageAlternates(page: PageKey, locale: Locale) {
-  const jaPath = PAGE_PATHS[page].ja;
-  const enPath = PAGE_PATHS[page].en;
+export function pageAlternates(page: PageKey) {
+  const path = PAGE_PATHS[page];
 
   return {
-    canonical: absoluteUrl(PAGE_PATHS[page][locale]),
-    languages: {
-      ja: absoluteUrl(jaPath),
-      en: absoluteUrl(enPath),
-      "x-default": absoluteUrl(jaPath),
-    },
+    canonical: absoluteUrl(path),
     types: {
       "text/plain": [
         { url: "/llms.txt", title: "llms.txt" },
@@ -88,7 +80,6 @@ export function createPageMetadata(
   page: PageKey,
 ): Metadata {
   const site = getSite(locale);
-  const rail = getRail(locale);
   const path = getPagePath(locale, page);
   const title = pageTitle(locale, page);
   const description = pageDescription(locale, page);
@@ -105,12 +96,11 @@ export function createPageMetadata(
     creator: site.legalName,
     publisher: site.legalName,
     category: "technology",
-    classification: rail.productName,
-    alternates: pageAlternates(page, locale),
+    classification: business.name,
+    alternates: pageAlternates(page),
     openGraph: {
       type: "website",
-      locale: locale === "ja" ? "ja_JP" : "en_US",
-      alternateLocale: locale === "ja" ? ["en_US"] : ["ja_JP"],
+      locale: "ja_JP",
       url,
       siteName: site.legalName,
       title,
@@ -130,26 +120,13 @@ export function createPageMetadata(
       description,
       images: [ogImage],
     },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-video-preview": -1,
-        "max-image-preview": "large",
-        "max-snippet": -1,
-      },
-    },
   };
 }
 
-/** Metadata for the Japanese home-robotics pages (no /en counterpart). */
 export function createSiteMetadata({
   title,
   description,
   path,
-  noindex = false,
 }: {
   title: string;
   description: string;
@@ -172,15 +149,11 @@ export function createSiteMetadata({
       images: [{ url: absoluteUrl(OG_IMAGE_PATH), width: OG_IMAGE_WIDTH, height: OG_IMAGE_HEIGHT, alt: OG_IMAGE_ALT }],
     },
     twitter: { card: "summary_large_image", title, description, images: [absoluteUrl(OG_IMAGE_PATH)] },
-    robots: noindex
-      ? { index: false, follow: false, googleBot: { index: false, follow: false } }
-      : { index: true, follow: true },
   };
 }
 
 export function createRootMetadata(): Metadata {
   const site = getSite("ja");
-  const rail = getRail("ja");
 
   return {
     metadataBase: new URL(SITE_URL),
@@ -194,7 +167,7 @@ export function createRootMetadata(): Metadata {
     creator: site.legalName,
     publisher: site.legalName,
     category: "technology",
-    classification: rail.productName,
+    classification: business.name,
     referrer: "origin-when-cross-origin",
     formatDetection: {
       email: false,
@@ -203,10 +176,10 @@ export function createRootMetadata(): Metadata {
     },
     icons: {
       icon: [
-        { url: "/icon.svg?v=8", type: "image/svg+xml" },
-        { url: "/icon.png?v=8", type: "image/png" },
+        { url: "/icon.svg?v=10", type: "image/svg+xml" },
+        { url: "/icon.png?v=10", type: "image/png" },
       ],
-      apple: [{ url: "/apple-icon.png?v=8", type: "image/png" }],
+      apple: [{ url: "/apple-icon.png?v=10", type: "image/png" }],
     },
     openGraph: {
       siteName: site.legalName,

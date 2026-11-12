@@ -1,4 +1,5 @@
-import { getSite, type Locale } from "@/constants/site";
+import { getSite } from "@/constants/site";
+import { business, partners, service } from "@/content/home";
 import { absoluteUrl, getPagePath } from "@/lib/seo";
 import { getSiteContent } from "@/lib/site-content";
 
@@ -6,99 +7,86 @@ function oneLine(value: string): string {
   return value.replace(/\s+/g, " ").trim();
 }
 
-function pageUrl(locale: Locale, page: "home" | "company" | "privacy" | "contact"): string {
-  return absoluteUrl(getPagePath(locale, page));
+function pageUrl(page: "home" | "company" | "privacy" | "contact"): string {
+  return absoluteUrl(getPagePath("ja", page));
 }
 
-function companyFacts(locale: Locale): string[] {
-  const site = getSite(locale);
+function companyFacts(): string[] {
+  const site = getSite("ja");
   return site.company.rows.map(
     (row) => `- ${row.label}: ${oneLine(row.value)}`,
   );
 }
 
-function serviceLines(locale: Locale): string[] {
-  const home = pageUrl(locale, "home");
-  return getSiteContent(locale).services.map(
+function serviceLines(): string[] {
+  const home = pageUrl("home");
+  return getSiteContent("ja").services.map(
     (item) => `- [${item.name}](${home}#${item.id}): ${oneLine(item.body)}`,
   );
 }
 
-function faqLines(locale: Locale): string[] {
-  const home = pageUrl(locale, "home");
-  return getSiteContent(locale).faqs.flatMap((item, index) => [
+function faqLines(): string[] {
+  const home = pageUrl("home");
+  return service.faqs.flatMap((item, index) => [
     `- [${item.q}](${home}#faq-${index})`,
     `  ${oneLine(item.a)}`,
   ]);
 }
 
-function stepLines(locale: Locale): string[] {
-  return getSiteContent(locale).steps.map(
-    (step, index) => `${index + 1}. ${step.title}: ${oneLine(step.body)}`,
-  );
-}
-
-function localeBlock(locale: Locale): string {
-  const site = getSite(locale);
-  const content = getSiteContent(locale);
-  const home = pageUrl(locale, "home");
-  const ja = locale === "ja";
+export function buildLlmsTxt(): string {
+  const site = getSite("ja");
+  const content = getSiteContent("ja");
+  const home = pageUrl("home");
 
   return [
-    ja ? "## 日本語" : "## English",
+    `# ${site.legalName}`,
     "",
-    oneLine(content.headline),
+    `> ${oneLine(site.tagline)}`,
     "",
     oneLine(content.description),
     "",
-    oneLine(content.intro),
+    "## ミッション",
     "",
-    `### ${site.nav.services}`,
-    ...serviceLines(locale),
-    "",
-    `### ${content.stepsTitle}`,
-    ...stepLines(locale),
-    "",
-    `### ${ja ? "産業領域" : "Industries"}`,
-    content.industries.join(ja ? "、" : ", "),
-    "",
-    `### ${ja ? "ミッション" : "Mission"}`,
     oneLine(content.mission),
     "",
-    `### ${site.company.title}`,
-    ...companyFacts(locale),
+    `## ${business.name}`,
     "",
-    "### FAQ",
-    ...faqLines(locale),
+    oneLine(content.intro),
     "",
-    `### ${site.contact.title}`,
+    ...serviceLines(),
+    "",
+    `## サービス：${service.name}`,
+    "",
+    oneLine(`${service.lead} ${service.body}`),
+    "",
+    ...service.points.map((p) => `- ${p.title}: ${oneLine(p.body)}`),
+    "",
+    "## 導入のご相談",
+    "",
+    oneLine(partners.body),
+    "",
+    content.industries.join("、"),
+    "",
+    `## ${site.company.title}`,
+    "",
+    ...companyFacts(),
+    "",
+    "## FAQ",
+    "",
+    ...faqLines(),
+    "",
+    `## ${site.contact.title}`,
+    "",
     oneLine(site.contact.body),
-    `- [${site.contact.title}](${pageUrl(locale, "contact")})`,
+    `- [${site.contact.title}](${pageUrl("contact")})`,
     "",
-    "### Pages",
-    `- [${ja ? "トップ" : "Home"}](${home}): ${oneLine(content.description)}`,
-    `- [${site.company.title}](${pageUrl(locale, "company")}): ${oneLine(site.seo.companyDescription)}`,
-    `- [${site.contact.title}](${pageUrl(locale, "contact")}): ${oneLine(site.seo.contactDescription)}`,
-    `- [${site.privacy.title}](${pageUrl(locale, "privacy")}): ${oneLine(site.seo.privacyDescription)}`,
-  ].join("\n");
-}
-
-export function buildLlmsTxt(): string {
-  const ja = getSite("ja");
-  const en = getSite("en");
-
-  return [
-    `# ${ja.legalName}`,
+    "## Pages",
     "",
-    `> ${oneLine(ja.tagline)}`,
-    "",
-    oneLine(getSiteContent("ja").description),
-    "",
-    `${en.legalName} ${oneLine(en.tagline)}`,
-    "",
-    localeBlock("ja"),
-    "",
-    localeBlock("en"),
+    `- [トップ](${home}): ${oneLine(content.description)}`,
+    `- [${service.name}](${home}#service): ${oneLine(service.lead)}`,
+    `- [${site.company.title}](${pageUrl("company")}): ${oneLine(site.seo.companyDescription)}`,
+    `- [${site.contact.title}](${pageUrl("contact")}): ${oneLine(site.seo.contactDescription)}`,
+    `- [${site.privacy.title}](${pageUrl("privacy")}): ${oneLine(site.seo.privacyDescription)}`,
     "",
     "## Optional",
     "",
@@ -107,8 +95,8 @@ export function buildLlmsTxt(): string {
   ].join("\n");
 }
 
-function privacyBlock(locale: Locale): string {
-  const site = getSite(locale);
+function privacyBlock(): string {
+  const site = getSite("ja");
   const sections = site.privacy.sections.map(
     (section) => `### ${section.heading}\n\n${oneLine(section.body)}`,
   );
@@ -122,5 +110,5 @@ function privacyBlock(locale: Locale): string {
 }
 
 export function buildLlmsFullTxt(): string {
-  return [buildLlmsTxt().trimEnd(), "", privacyBlock("ja"), "", privacyBlock("en"), ""].join("\n");
+  return [buildLlmsTxt().trimEnd(), "", privacyBlock(), ""].join("\n");
 }

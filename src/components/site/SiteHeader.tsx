@@ -1,44 +1,36 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import PillLink from "@/components/site/PillLink";
+import Wordmark from "@/components/site/Wordmark";
 import { brand, nav, contactCta } from "@/content/home";
 
-export default function SiteHeader() {
+export default function SiteHeader({ minimal = false }: { minimal?: boolean }) {
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
-  const [onDark, setOnDark] = useState(false);
-  const logo = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
-    let lastY = window.scrollY;
-    let frame = 0;
-    const overlapsLogo = (el: Element) => {
-      const logoRect = logo.current?.getBoundingClientRect();
-      if (!logoRect) return false;
-      const r = el.getBoundingClientRect();
-      return r.bottom > logoRect.top && r.top < logoRect.bottom && r.right > logoRect.left && r.left < logoRect.right;
-    };
-    const checkBackdrop = () => {
-      frame = 0;
-      setOnDark([...document.querySelectorAll("[data-header-dark]")].some(overlapsLogo));
-    };
+    let previousY = Math.max(0, window.scrollY);
+    let travel = 0;
     const onScroll = () => {
-      if (!frame) frame = requestAnimationFrame(checkBackdrop);
-      const y = window.scrollY;
-      if (Math.abs(y - lastY) < 6) return;
-      setHidden(y > lastY && y > 64);
-      lastY = y;
+      const y = Math.max(0, window.scrollY);
+      const delta = y - previousY;
+      previousY = y;
+      if (y <= 96) {
+        travel = 0;
+        setHidden(false);
+        return;
+      }
+      if (delta === 0) return;
+      travel = Math.sign(delta) === Math.sign(travel) ? travel + delta : delta;
+      if (Math.abs(travel) >= 8) {
+        setHidden(travel > 0);
+        travel = 0;
+      }
     };
-    checkBackdrop();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
@@ -56,37 +48,21 @@ export default function SiteHeader() {
 
   return (
     <>
-      <header
-        className={`sticky top-0 z-50 transition-[translate] duration-300 ${open ? "bg-white" : "bg-transparent"} ${
-          hidden && !open ? "-translate-y-full focus-within:translate-y-0" : ""
-        }`}
-      >
-        <div className="grid h-16 grid-cols-[1fr_auto] items-center gap-4 px-4 md:grid-cols-[1fr_auto_1fr] lg:px-6">
-          <Link
-            ref={logo}
-            href="/"
-            className="flex items-center justify-self-start"
-            onClick={() => setOpen(false)}
-          >
-            <Image
-              src={brand.logo.src}
-              width={brand.logo.width}
-              height={brand.logo.height}
-              alt={brand.name}
-              priority
-              className={`h-[18px] w-auto transition-[filter] duration-300 lg:h-5 ${
-                onDark && !open ? "brightness-0 invert" : ""
-              }`}
-            />
-          </Link>
+    {minimal && <div aria-hidden="true" className="h-[88px] shrink-0 lg:h-24" />}
+    <header className={`fixed inset-x-0 top-0 z-50 transition-transform duration-200 motion-reduce:transition-none focus-within:translate-y-0 ${hidden && !open ? "-translate-y-full" : "translate-y-0"} ${minimal ? "site-content bg-white py-4" : "p-2 lg:p-4"}`}>
+      <div className={`flex h-14 items-center justify-between lg:h-16 ${minimal ? "bg-white" : "rounded-full bg-white/95 pr-1.5 pl-6 backdrop-blur-xl lg:pr-2 lg:pl-8"}`}>
+        <Link href="/" className="flex items-center text-ink" onClick={() => setOpen(false)}>
+          <Wordmark name={brand.name} className="h-[16px] translate-y-[2px] lg:h-[18px]" />
+        </Link>
 
-          <nav aria-label="メイン" className="hidden md:block">
-            <ul className="flex items-center gap-8">
+        <div className="flex items-center gap-5 xl:gap-8">
+          <nav aria-label="メイン" className="hidden lg:block">
+            <ul className="flex items-center gap-5 xl:gap-8">
               {nav.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="block py-2 text-[13px] font-medium text-ink-muted transition-colors hover:text-ink"
+                    className="whitespace-nowrap text-[13px] text-ink transition-opacity hover:opacity-50 xl:text-sm"
                   >
                     {link.label}
                   </Link>
@@ -95,17 +71,15 @@ export default function SiteHeader() {
             </ul>
           </nav>
 
-          <Link
-            href={contactCta.href}
-            className="group hidden items-center gap-3 justify-self-end rounded-full bg-ink py-1.5 pr-1.5 pl-5 text-[13px] font-medium text-white transition-colors hover:bg-ink/85 md:inline-flex"
-          >
-            {contactCta.label}
-            <ArrowIcon className="h-7 w-7 bg-white text-ink" />
-          </Link>
+          <div className="hidden lg:block">
+            <PillLink href={contactCta.href} className="border-0! bg-[#e73b09]! text-white! hover:bg-[#ca3308]! h-10! w-auto! px-5! text-[13px]! lg:h-11! lg:px-6!">
+              {contactCta.label}
+            </PillLink>
+          </div>
 
           <button
             type="button"
-            className="flex h-10 w-10 items-center justify-center justify-self-end rounded-full bg-paper md:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-full text-ink lg:hidden"
             aria-label={open ? "メニューを閉じる" : "メニューを開く"}
             aria-expanded={open}
             aria-controls="mobile-menu"
@@ -113,55 +87,39 @@ export default function SiteHeader() {
           >
             <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
               {open ? (
-                <path d="M4 4l12 12M16 4L4 16" stroke="currentColor" strokeWidth="1.8" />
+                <path d="M4 4l12 12M16 4L4 16" stroke="currentColor" strokeWidth="2" />
               ) : (
-                <path d="M2 7h16M2 13h16" stroke="currentColor" strokeWidth="1.8" />
+                <path d="M2 6h16M2 14h16" stroke="currentColor" strokeWidth="2" />
               )}
             </svg>
           </button>
         </div>
-      </header>
+      </div>
 
-      {/* Kept outside <header>: its transform would become the containing block for `fixed`. */}
       <div
         id="mobile-menu"
         hidden={!open}
-        className="fixed inset-x-0 top-16 bottom-0 z-50 bg-white px-4 pt-4 pb-10 md:hidden"
+        className="mt-2 rounded-[28px] bg-white px-6 pt-2 pb-6 lg:hidden"
       >
-        <nav aria-label="モバイル" className="flex h-full flex-col">
+        <nav aria-label="モバイル" className="flex flex-col">
           {nav.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className="border-b border-line py-5 text-xl font-medium"
+              className="py-4 text-base text-ink"
             >
               {link.label}
             </Link>
           ))}
-          <Link
-            href={contactCta.href}
-            onClick={() => setOpen(false)}
-            className="mt-auto flex h-14 w-full items-center justify-between rounded-full bg-ink pr-2 pl-6 text-[15px] font-medium text-white"
-          >
-            {contactCta.label}
-            <ArrowIcon className="h-10 w-10 bg-white text-ink" />
-          </Link>
+          <div className="mt-4">
+            <PillLink href={contactCta.href} onClick={() => setOpen(false)} className="w-full border-0! bg-[#e73b09]! text-white! hover:bg-[#ca3308]!">
+              {contactCta.label}
+            </PillLink>
+          </div>
         </nav>
       </div>
+    </header>
     </>
-  );
-}
-
-function ArrowIcon({ className }: { className: string }) {
-  return (
-    <span
-      aria-hidden="true"
-      className={`flex items-center justify-center rounded-full transition-transform duration-200 group-hover:translate-x-0.5 ${className}`}
-    >
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-        <path d="M1 6h9M6.5 2.5L10 6l-3.5 3.5" stroke="currentColor" strokeWidth="1.5" />
-      </svg>
-    </span>
   );
 }

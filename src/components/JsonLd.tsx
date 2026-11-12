@@ -1,4 +1,5 @@
 import { getSite, type Locale } from "@/constants/site";
+import { brand, business, service } from "@/content/home";
 import {
   absoluteUrl,
   CONTENT_UPDATED,
@@ -51,8 +52,6 @@ function homeUrl(locale: Locale): string {
 function organizationSchema(locale: Locale): SchemaNode {
   const site = getSite(locale);
   const content = getSiteContent(locale);
-  const ja = getSite("ja");
-  const en = getSite("en");
 
   return {
     "@type": "Organization",
@@ -60,11 +59,9 @@ function organizationSchema(locale: Locale): SchemaNode {
     name: site.legalName,
     legalName: site.legalName,
     alternateName: unique([
-      ja.name,
-      ja.legalName,
-      en.name,
-      en.legalName,
-      en.nameEn,
+      brand.name,
+      brand.legalName,
+      brand.legalNameEn,
     ]),
     url: SITE_URL,
     logo: {
@@ -78,28 +75,20 @@ function organizationSchema(locale: Locale): SchemaNode {
     slogan: site.tagline,
     description: content.description,
     knowsAbout: unique([
-      locale === "ja" ? "フィジカルAI" : "Physical AI",
+      business.name,
+      service.name,
       ...content.services.map((item) => item.name),
-      locale === "ja" ? "ヒューマノイド" : "humanoid robots",
-      locale === "ja" ? "四足歩行ロボット" : "quadruped robots",
-      locale === "ja" ? "ロボットアーム" : "robot arms",
-      "VLA",
-      locale === "ja" ? "模倣学習" : "imitation learning",
-      locale === "ja" ? "ロボット制御" : "robot control",
     ]),
-    knowsLanguage: ["ja", "en"],
+    knowsLanguage: ["ja"],
     areaServed: {
       "@type": "Country",
       name: "Japan",
     },
     address: {
       "@type": "PostalAddress",
-      streetAddress:
-        locale === "ja"
-          ? "MIEUX渋谷ビル8階 渋谷区円山町5-3"
-          : "MIEUX Shibuya Building 8F, 5-3 Maruyama-cho",
-      addressLocality: locale === "ja" ? "渋谷区" : "Shibuya-ku",
-      addressRegion: locale === "ja" ? "東京都" : "Tokyo",
+      streetAddress: "MIEUX渋谷ビル8階 渋谷区円山町5-3",
+      addressLocality: "渋谷区",
+      addressRegion: "東京都",
       postalCode: "150-0044",
       addressCountry: "JP",
     },
@@ -110,7 +99,7 @@ function organizationSchema(locale: Locale): SchemaNode {
       contactType: "customer support",
       email: site.email,
       url: absoluteUrl(getPagePath(locale, "contact")),
-      availableLanguage: ["Japanese", "English"],
+      availableLanguage: ["Japanese"],
       areaServed: "JP",
     },
   };
@@ -134,10 +123,10 @@ function websiteSchema(locale: Locale): SchemaNode {
     "@type": "WebSite",
     "@id": WEBSITE_ID,
     url: SITE_URL,
-    name: locale === "ja" ? site.legalName : site.nameEn,
+    name: site.legalName,
     alternateName: unique([site.name, site.nameEn, site.legalName]),
     description: getSiteContent(locale).description,
-    inLanguage: ["ja-JP", "en-US"],
+    inLanguage: ["ja-JP"],
     publisher: { "@id": ORG_ID },
     copyrightHolder: { "@id": ORG_ID },
     copyrightYear: copyrightYear(),
@@ -176,10 +165,10 @@ function serviceSchemas(locale: Locale): SchemaNode[] {
     name: item.name,
     description: item.body,
     serviceType: item.name,
-    category: locale === "ja" ? "フィジカルAI" : "Physical AI",
+    category: business.name,
     url: `${home}#${item.id}`,
     provider: { "@id": ORG_ID },
-    audience: { "@type": "BusinessAudience", name: locale === "ja" ? "法人" : "Businesses" },
+    audience: { "@type": "BusinessAudience", name: "法人" },
     areaServed: { "@type": "Country", name: "Japan" },
     inLanguage: language(locale),
   }));
@@ -199,46 +188,6 @@ function offerCatalogSchema(locale: Locale): SchemaNode {
       position: index + 1,
       name: item.name,
       item: { "@id": `${home}#service-${item.id}` },
-    })),
-  };
-}
-
-function approachSchema(locale: Locale): SchemaNode {
-  const content = getSiteContent(locale);
-  const home = homeUrl(locale);
-
-  return {
-    "@type": "ItemList",
-    "@id": `${home}#approach`,
-    name: content.stepsTitle,
-    url: `${home}#flow`,
-    itemListElement: content.steps.map((step, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: step.title,
-      description: step.body,
-    })),
-  };
-}
-
-function faqSchema(locale: Locale): SchemaNode {
-  const content = getSiteContent(locale);
-  const home = homeUrl(locale);
-
-  return {
-    "@type": "FAQPage",
-    "@id": `${home}#faq`,
-    url: `${home}#faq`,
-    inLanguage: language(locale),
-    isPartOf: { "@id": `${home}#webpage` },
-    mainEntity: content.faqs.map((item, index) => ({
-      "@type": "Question",
-      "@id": `${home}#faq-${index}`,
-      name: item.q,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: item.a,
-      },
     })),
   };
 }
@@ -271,11 +220,7 @@ function webPageSchema(locale: Locale, page: PageKey): SchemaNode {
 
   if (page === "home") {
     node.mainEntity = { "@id": ORG_ID };
-    node.hasPart = [
-      { "@id": `${home}#services` },
-      { "@id": `${home}#faq` },
-      { "@id": `${home}#approach` },
-    ];
+    node.hasPart = [{ "@id": `${home}#services` }];
   }
 
   if (page === "company") {
@@ -318,8 +263,6 @@ export default function JsonLd({ locale, page }: JsonLdProps) {
       ? [
           ...serviceSchemas(locale),
           offerCatalogSchema(locale),
-          faqSchema(locale),
-          approachSchema(locale),
         ]
       : [];
 

@@ -1089,7 +1089,7 @@ body {
 
 /* Footer — boxed, aligned to page gutter, with interactive dot matrix */
 .site-footer-shell {
-  padding: 0 16px calc(16px + env(safe-area-inset-bottom, 0px));
+  padding: 0 8px calc(8px + env(safe-area-inset-bottom, 0px));
 }
 
 .site-footer {
@@ -1102,7 +1102,7 @@ body {
   gap: 2.5rem;
   margin: 0;
   padding: 2.75rem 1.75rem 2.25rem;
-  border-radius: 12px;
+  border-radius: 32px;
   background: var(--accent);
   color: #fff;
   text-shadow: 0 0 10px rgba(26, 26, 26, 0.9), 0 0 20px rgba(26, 26, 26, 0.9);
@@ -1127,20 +1127,6 @@ body {
 
 .site-footer-brand:hover {
   opacity: 0.85;
-}
-
-.site-footer-brand img {
-  height: 40px;
-  width: auto;
-  object-fit: contain;
-  filter: invert(1);
-}
-
-.site-footer-brand span {
-  font-family: var(--font-montserrat), sans-serif;
-  font-size: 1.125rem;
-  font-weight: 700;
-  letter-spacing: -0.03em;
 }
 
 .site-footer-nav {
@@ -1194,13 +1180,13 @@ body {
 
 @media (min-width: 768px) {
   .site-footer-shell {
-    padding: 0 24px calc(24px + env(safe-area-inset-bottom, 0px));
+    padding: 0 12px calc(12px + env(safe-area-inset-bottom, 0px));
   }
 
   .site-footer {
     min-height: 22rem;
     padding: 3.5rem 2.5rem 2.75rem;
-    border-radius: 12px;
+    border-radius: 48px;
     gap: 3rem;
   }
 
@@ -2140,20 +2126,39 @@ body {
   }
 }
 
-/* Home robotics site */
+/* Site */
 @theme inline {
   --font-site: var(--font-inter), var(--font-noto-sans-jp), system-ui, sans-serif;
+  --font-display: var(--font-barlow-condensed), var(--font-inter), sans-serif;
   --color-ink: #111111;
+  --color-text: #333333;
   --color-ink-muted: #666666;
   --color-line: #eaeaea;
   --color-paper: #f8f8f8;
+  --color-cream: #f9f7ec;
+  --color-sand: #ffb59a;
+  --color-sky: #84d2f6;
+  --color-lemon: #fdd827;
+  --color-mint: #8fe0b4;
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1;
 }
 
 .site {
-  font-family: var(--font-site);
-  color: var(--color-ink);
-  background: #1a1a1a;
-  font-feature-settings: "palt" 1;
+  --site-content-width: 100%;
+  --site-gutter: clamp(20px, 2vw, 40px);
+  --site-inset: clamp(20px, 2vw, 40px);
+  font-family: var(--font-noto-sans-jp), var(--font-inter), system-ui, sans-serif;
+  color: var(--color-text);
+  background: #ffffff;
+}
+
+.site-content {
+  padding-inline: var(--site-inset);
 }
 
 .site :is(h1, h2, h3) {
@@ -2164,6 +2169,8 @@ body {
   outline: 2px solid var(--color-ink);
   outline-offset: 3px;
 }
+
+
 
 @keyframes site-reveal {
   from {
@@ -2247,6 +2254,11 @@ body {
 
 .site .content-wrapper {
   background: #ffffff;
+}
+
+.site :is(h1, h2, h3) {
+  word-break: auto-phrase;
+  text-wrap: balance;
 }
 @media (max-width: 767px) {
   .site .site-footer-nav {

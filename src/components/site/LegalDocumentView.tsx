@@ -59,26 +59,14 @@ export default function LegalDocumentView({ doc }: { doc: LegalDocument }) {
   const meta = legalDocuments[doc.key];
 
   return (
-    <article className="grid gap-10 px-4 pt-16 pb-24 lg:grid-cols-12 lg:gap-6 lg:px-6 lg:pt-28 lg:pb-36">
+    <article className="mx-auto grid max-w-[1280px] gap-10 px-6 pt-12 pb-24 lg:grid-cols-12 lg:gap-12 lg:px-20 lg:pt-20 lg:pb-36">
       <header className="lg:col-span-4">
         <div className="lg:sticky lg:top-28">
-          <h1 className="text-[32px] font-bold leading-[1.25] tracking-[-0.02em] lg:text-[44px]">
+          <h1 className="text-[28px] font-bold leading-[1.3] tracking-[-0.02em] text-ink lg:text-[36px]">
             {meta.title}
           </h1>
-          <dl className="mt-6 space-y-1 text-xs text-ink-muted">
-            <div className="flex gap-2">
-              <dt>施行日</dt>
-              <dd>{meta.effectiveDate ?? "未定"}</dd>
-            </div>
-            <div className="flex gap-2">
-              <dt>版</dt>
-              <dd>{meta.version}</dd>
-            </div>
-          </dl>
-          {meta.status === "draft" && (
-            <p className="mt-6 rounded-xl border border-ink px-4 py-3 text-sm leading-relaxed">
-              この文書は確認中の草案です。施行日が記載されるまでは確定版ではありません。
-            </p>
+          {meta.effectiveDate && (
+            <p className="mt-4 text-xs text-ink-muted">制定・改定日：{meta.effectiveDate}</p>
           )}
         </div>
       </header>
