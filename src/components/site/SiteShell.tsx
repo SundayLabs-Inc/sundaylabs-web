@@ -7,7 +7,7 @@ export default function SiteShell({
   overlayHeader = false,
 }: {
   children: ReactNode;
-  /** Home uses an in-flow header and supplies its own opening spacing. */
+  /** Home sits the header over a full-bleed hero. */
   overlayHeader?: boolean;
 }) {
   return (
@@ -19,7 +19,7 @@ export default function SiteShell({
         本文へスキップ
       </a>
       <div className="content-wrapper flex flex-col">
-        <SiteHeader minimal={overlayHeader} />
+        <SiteHeader overlay={overlayHeader} />
         <main
           id="main"
           className={`flex-1 ${overlayHeader ? "" : "bg-white pt-24 lg:pt-32"}`}

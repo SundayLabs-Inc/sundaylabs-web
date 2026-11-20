@@ -8,7 +8,7 @@ export const metadata: Metadata = createPageMetadata("ja", "home");
 
 export default function Home() {
   return (
-    <SiteShell overlayHeader>
+    <SiteShell>
       <JsonLd locale="ja" page="home" />
       <HomeRentalPage />
     </SiteShell>

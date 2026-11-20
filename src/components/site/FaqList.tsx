@@ -23,11 +23,11 @@ export default function FaqList({ items }: { items: { q: string; a: string }[] }
   const linkedIndex = match ? Number(match[1]) : -1;
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="mt-10 flex flex-col border-t border-[#1111111a]">
       {items.map((item, index) => {
         const isOpen = open[index] ?? index === linkedIndex;
         return (
-          <div key={item.q} id={`faq-${index}`} className="rounded-[20px] bg-[#f3f3f0] px-5 lg:rounded-[24px] lg:px-8">
+          <div key={item.q} id={`faq-${index}`} className="border-b border-[#1111111a]">
             <button
               type="button"
               aria-expanded={isOpen}

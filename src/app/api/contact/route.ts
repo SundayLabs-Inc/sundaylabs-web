@@ -1,3 +1,4 @@
+import { contactTypes } from "@/constants/contact";
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 
@@ -6,6 +7,7 @@ const RESEND_FROM =
   process.env.RESEND_FROM ?? "SundayLabs <onboarding@resend.dev>";
 
 type ContactPayload = {
+  contactType?: string;
   email?: string;
   company?: string;
   role?: string;
@@ -31,13 +33,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "invalid_json" }, { status: 400 });
   }
 
+  const contactType = contactTypes.find((type) => type.value === payload.contactType);
   const email = String(payload.email ?? "").trim();
   const company = String(payload.company ?? "").trim();
   const role = String(payload.role ?? "").trim();
   const message = String(payload.message ?? "").trim();
   const locale = payload.locale === "en" ? "en" : "ja";
 
-  if (!email || !company || !role || !message || !isValidEmail(email)) {
+  if (!contactType || !email || !company || !role || !message || !isValidEmail(email)) {
     return NextResponse.json({ error: "invalid_input" }, { status: 400 });
   }
 
@@ -60,6 +63,7 @@ export async function POST(request: Request) {
         };
 
   const text = [
+    `${locale === "en" ? "Contact type" : "お問い合わせ者の区分"}: ${contactType[locale]}`,
     `${labels.email}: ${email}`,
     `${labels.company}: ${company}`,
     `${labels.role}: ${role}`,

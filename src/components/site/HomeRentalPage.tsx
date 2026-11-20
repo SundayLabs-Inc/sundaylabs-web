@@ -1,93 +1,42 @@
-import Link from "next/link";
 import Image from "next/image";
-import LifestyleHero from "@/components/site/LifestyleHero";
-import FaqList from "@/components/site/FaqList";
-import OperationShowcase from "@/components/site/OperationShowcase";
-import { closing, contactCta, feature, flow, operation, owners, service } from "@/content/home";
+import Link from "next/link";
+import FaqItem from "./FaqItem";
+import AppWalkthrough from "./AppWalkthrough";
+import { service } from "@/content/home";
 import styles from "./HomeRentalPage.module.css";
 
+const removedQuestions = new Set(["どのように家電を借りられますか？", "使い終わった家電は、どこに返しますか？", "管理会社は、どこまで対応する必要がありますか？"]);
+const photos = [
+  { name: "robot", alt: "木の床で使用するロボット掃除機", position: "right center" },
+  { name: "printer", alt: "プリンターで印刷する様子", position: "center" },
+  { name: "vacuum", alt: "コードレス掃除機", position: "center" },
+  { name: "projector", alt: "自宅でプロジェクターを楽しむ様子", position: "center" },
+];
 export default function HomeRentalPage() {
-  return (
-    <div className={styles.page}>
-      <LifestyleHero />
-
-      <section id="service" aria-labelledby="service-heading" className={styles.section}>
-        <div className={styles.sectionHead}>
-          <h2 id="service-heading">マンションの家電シェアで、身軽な暮らし</h2>
-        </div>
-        <div className={`${styles.lineup} ${styles.benefitCards}`}>
-          {[
-            { id: "borrow", first: "買わずに", last: "使える。", body: "たまに使う家電を、必要なときだけ借りられます。購入費用をかけずに利用できます。" },
-            { id: "space", first: "収納を", last: "増やさない。", body: "使い終わったらマンションの共用スペースへ返します。自宅に家電を置く場所を用意する必要はありません。" },
-            { id: "nearby", first: "すぐそばで", last: "借りられる。", body: "受け取りも返却もマンション内で済みます。配送を待つ時間や、返送の手間を省けます。" },
-            { id: "try", first: "気になる家電を", last: "試せる。", body: "使い心地を自宅で確かめてから、自分に合う一台を選べます。" },
-          ].map(item => <article key={item.id}>
-            <div className={styles.benefitImage}>
-              <Image src={`/images/home/benefit-${item.id}.png`} alt={item.first + item.last + "を表す暮らしのイメージ"}
-                fill sizes="(max-width: 767px) 90vw, (max-width: 1100px) 45vw, 24vw" className={styles.sectionImage} />
-            </div>
-            <h3>{item.first}{item.last}</h3>
-            <p>{item.body}</p>
-          </article>)}
-        </div>
-      </section>
-
-      <section id="how" aria-labelledby="how-heading" className={`${styles.section} ${styles.split} ${styles.how}`}>
-        <div className={styles.splitCopy}>
-          <h2 id="how-heading">{feature.title}</h2>
-          <ol className={styles.steps}>
-            {feature.steps.map(step => <li key={step.id}>
-              <div><h3>{step.title}</h3><p>{step.body}</p></div>
-            </li>)}
-          </ol>
-        </div>
-        <div className={`${styles.media} ${styles.portraitMedia}`}>
-          <Image src="/images/home/app-and-locker.png" alt="スマートフォンを使い、マンションの共用スペースのロッカーから家電を受け取るイメージ"
-            fill sizes="(max-width: 767px) 90vw, 55vw" className={styles.sectionImage} />
-        </div>
-      </section>
-
-      <section id="owners" aria-labelledby="owners-heading" className={`${styles.section} ${styles.split} ${styles.owners}`}>
-        <div className={styles.lockerLineup}>
-          <Image src="/images/home/shared-appliance-fictional-v4.png" width={1774} height={887}
-            sizes="(max-width: 767px) 90vw, 55vw" alt="掃除機、VRヘッドセット、プロジェクター、美容家電などを並べた共用棚のイメージ" />
-          <p className={styles.imageNote}>画像はイメージです。</p>
-        </div>
-        <div className={styles.splitCopy}>
-          <h2 id="owners-heading">{owners.title}</h2>
-          <ul className={styles.editorialList}>{owners.items.map(item => <li key={item.title}>
-            <h3>{item.title}</h3><p>{item.body}</p>
-          </li>)}</ul>
-        </div>
-      </section>
-
-      <section id="operation" aria-labelledby="operation-heading" className={`${styles.section} ${styles.operation}`}>
-        <div className={styles.operationIntro}>
-          <h2 id="operation-heading">{operation.title}</h2>
-        </div>
-        <OperationShowcase />
-      </section>
-
-      <section id="flow" aria-labelledby="flow-heading" className={`${styles.section} ${styles.flowSection}`}>
-        <div className={styles.flowIntro}>
-          <h2 id="flow-heading">{flow.title}</h2>
-        </div>
-        <ol className={styles.flow}>
-          {flow.steps.map(step => <li key={step.id} id={step.id}>
-            <h3>{step.title}</h3><p>{step.body}</p>
-          </li>)}
-        </ol>
-      </section>
-
-      <section id="faq" aria-labelledby="faq-heading" className={`${styles.section} ${styles.faq}`}>
-        <h2 id="faq-heading">よくある質問</h2>
-        <FaqList items={service.faqs} />
-      </section>
-
-      <section aria-labelledby="closing-heading" className={styles.closing}>
-        <div><h2 id="closing-heading">{closing.title}</h2></div>
-        <Link href={contactCta.href} className={styles.button}>{contactCta.label}</Link>
-      </section>
-    </div>
-  );
+  const faqs = service.faqs.filter(item => !removedQuestions.has(item.q) && !item.q.includes("管理会社"));
+  return <div className={styles.page}>
+    <section id="hero" className={styles.hero} aria-labelledby="hero-heading">
+      <h1 id="hero-heading">所有に縛られない<br />新しい暮らしのインフラ</h1>
+      <p>SundayLabs は、マンションの共用空きスペースを活用し、<br className={styles.desktopBreak} />居住者が家電や生活ガジェットを手軽に借りられるシェアリングプラットフォームです。</p>
+      <div className={styles.actions}><Link className={styles.button} href="/contact">設置について相談する</Link><a className={styles.secondary} href="#how">利用方法を見る</a></div>
+      <div className={styles.heroVisual}><picture><source media="(max-width: 800px)" srcSet="/images/figma/hero-station-mobile-v1.jpg" /><Image unoptimized src="/images/figma/hero-station-desktop.jpg" alt="共用スペースに設置されたSundayLabsの家電レンタルステーションのイメージ" width={1672} height={941} preload sizes="(max-width: 800px) calc(100vw - 48px), (max-width: 1040px) calc(100vw - 64px), 976px" /></picture></div>
+    </section>
+    <section id="service" className={`${styles.section} ${styles.features}`} aria-labelledby="feature-heading">
+      <p className={styles.sectionLabel}>SundayLabsの特徴</p>
+      <h2 id="feature-heading">家電を所有せずに<br />必要なときだけ利用できる</h2>
+      <div className={styles.photoRow}>{photos.map(photo => <div key={photo.name} className={styles.photo}><Image src={`/images/figma/${photo.name}.png`} alt={photo.alt} fill sizes="(max-width: 600px) 72vw, (max-width: 900px) 45vw, 25vw" style={{objectFit:"cover",objectPosition:photo.position}} /></div>)}</div>
+      <div className={styles.featureBody}><p>家電を購入するときは、価格だけでなく使う頻度や収納場所も考える必要があります。<br className={styles.desktopBreak} />気になる製品でも、自宅での使い心地がわからず、購入を迷うことがあります。</p><p>SundayLabsは、必要なときだけ家電を借りて自宅で試せる仕組みで、<br className={styles.desktopBreak} />購入費用や収納場所の悩み、使い心地への不安を解決します。</p></div>
+    </section>
+    <AppWalkthrough />
+    <section id="owners" className={`${styles.section} ${styles.split}`} aria-labelledby="owner-heading">
+      <div className={styles.copy}><h2 id="owner-heading">共用スペースの活用で<br />住まいに新たな価値を</h2><p>共用の空きスペースを、家電や生活ガジェットを利用できる設備へ。居住者の日々の利便性を高め、物件選びの魅力となるサービスをご提案します。</p><p>商品の管理・メンテナンスから居住者のお問い合わせ対応まで、SundayLabsが担当します。設置場所や運用方法は、物件の条件に合わせて調整します。</p></div>
+      <div className={styles.partnerPhoto}><Image src="/images/figma/property-cityscape.png" alt="マンションが広がる街並み" fill sizes="(max-width: 800px) 100vw, 50vw" /></div>
+    </section>
+    <section id="manufacturers" className={`${styles.section} ${styles.split} ${styles.manufacturers}`} aria-labelledby="manufacturer-heading">
+      <div className={styles.partnerPhoto}><Image src="/images/figma/manufacturer-kitchen.png" alt="家電が日常に溶け込むキッチン" fill sizes="(max-width: 800px) 100vw, 50vw" /></div>
+      <div className={styles.copy}><h2 id="manufacturer-heading">暮らしの中で伝わる<br />製品の価値</h2><p>シェアステーションを通じて、製品を実際の生活環境で試せる機会を提供します。店頭での比較だけではわからない使い心地や日常での利便性を、購入前の体験として届けます。</p><p>製品の特性に応じた貸出方法や導入先への展開など、新たな顧客接点づくりをご相談いただけます。</p></div>
+    </section>
+    <section id="faq" className={`${styles.section} ${styles.faq}`} aria-labelledby="faq-heading"><h2 id="faq-heading">よくあるご質問</h2><div className={styles.faqList}>{faqs.map(item=><FaqItem key={item.q} question={item.q} answer={item.a} />)}</div></section>
+    <section className={styles.consultation} aria-labelledby="consultation-heading"><div className={styles.consultationInner}><div><h2 id="consultation-heading">設置スペースや運用方法など、導入についてご相談ください。</h2><p>物件の状況に合わせて、設置場所や<br className={styles.desktopBreak} />必要な設備をご案内します。</p><div className={styles.consultationAction}><Link href="/contact" className={styles.button}>設置について相談する</Link></div></div></div></section>
+  </div>;
 }

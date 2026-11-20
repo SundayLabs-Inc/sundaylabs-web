@@ -7,8 +7,12 @@ export const brand = {
 };
 
 export const hero = {
-  title: "所有からの解放、暮らしの拡張。",
-  lead: "マンションの中で、家電や生活ガジェットを必要なときだけ。SundayLabsは、マンションの共用スペースで借りて返せるシェアリングサービスです。",
+  title: "新しい暮らしの常識をつくる",
+  lead: "私たちは、住まいに新しい仕組みを取り入れることで、これまで当たり前だった暮らしのあり方を変えていきます。",
+};
+
+export const statement = {
+  body: "SundayLabs は、マンションの共用空きスペースを活用し、居住者が家電や生活ガジェットを手軽に借りられるシェアリングプラットフォームです。",
 };
 
 export const intro = {
@@ -83,18 +87,14 @@ export const seo = {
 };
 
 export const nav = [
-  { label: "サービス", href: "/#service" },
-  { label: "入居者の皆さまへ", href: "/#how" },
-  { label: "不動産事業者の皆さまへ", href: "/#owners" },
-  { label: "導入の流れ", href: "/#flow" },
+  { label: "サービスの特徴", href: "/#service" },
+  { label: "ご利用方法", href: "/#how" },
+  { label: "不動産オーナー", href: "/#owners" },
+  { label: "メーカー", href: "/#manufacturers" },
+  { label: "FAQ", href: "/#faq" },
 ];
-export const footerNav = [
-  ...nav,
-  { label: "運用", href: "/#operation" },
-  { label: "よくある質問", href: "/#faq" },
-  { label: "会社概要", href: "/company" },
-];
-export const contactCta = { label: "導入のご相談", href: "/contact" };
+export const footerNav = [...nav, { label: "会社概要", href: "/company" }];
+export const contactCta = { label: "設置について相談する", href: "/contact" };
 
 export const service = {
   name: "マンション内レンタル家電",

@@ -4,6 +4,8 @@ import { FormEvent, useState } from "react";
 import CtaButton from "@/components/CtaButton";
 import { getSite, type Locale } from "@/constants/site";
 
+import { contactTypes } from "@/constants/contact";
+
 type FormStatus = "idle" | "sending" | "success" | "error";
 
 export default function ContactCta({ locale }: { locale: Locale }) {
@@ -18,6 +20,7 @@ export default function ContactCta({ locale }: { locale: Locale }) {
     const formEl = e.currentTarget;
     const data = new FormData(formEl);
     const payload = {
+      contactType: String(data.get("contactType") || ""),
       email: String(data.get("email") || ""),
       company: String(data.get("company") || ""),
       role: String(data.get("role") || ""),
@@ -48,6 +51,15 @@ export default function ContactCta({ locale }: { locale: Locale }) {
 
   return (
     <form className="mt-12 space-y-4" onSubmit={onSubmit}>
+      <label className="block">
+        <span className="label-1 mb-2 block text-muted">
+          {locale === "ja" ? "お問い合わせ者の区分" : "I am a…"}
+        </span>
+        <select name="contactType" required defaultValue="" className="field-input">
+          <option value="" disabled>{locale === "ja" ? "選択してください" : "Please select"}</option>
+          {contactTypes.map((type) => <option key={type.value} value={type.value}>{type[locale]}</option>)}
+        </select>
+      </label>
       <label className="block">
         <span className="label-1 mb-2 block text-muted">{form.email}</span>
         <input
@@ -87,6 +99,7 @@ export default function ContactCta({ locale }: { locale: Locale }) {
       <div className="mt-2 flex flex-col items-center gap-3">
         <CtaButton
           type="submit"
+          className="contact-submit"
           disabled={status === "sending" || status === "success"}
         >
           {status === "sending" ? form.sending : site.contact.submit}

@@ -9,6 +9,7 @@ export default function CompanyPage({ locale }: { locale: Locale }) {
       locale={locale}
       title={site.company.title}
       headingId="company-heading"
+      centered
     >
       <dl className="mt-12">
         {site.company.rows.map((row) => (
