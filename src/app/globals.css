@@ -2268,9 +2268,6 @@ body {
   }
 }
 
-/* Brand mark remains legible on the monochrome footer. */
-.brand-footer .brand-symbol { filter: invert(1); }
-
 /* Mobile keeps touch scrolling without visible scrollbar tracks. */
 @media (max-width: 800px) {
   html, body, .site * { scrollbar-width: none; }

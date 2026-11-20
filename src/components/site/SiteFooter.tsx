@@ -24,7 +24,7 @@ export default function SiteFooter() {
         <div className="flex flex-col gap-14 lg:flex-row lg:gap-20">
           <div className="shrink-0 lg:w-[280px]">
             <Link href="/" className="block text-white">
-              <Wordmark name={brand.name} symbolOnly className="block h-8 w-auto" />
+              <Wordmark name={brand.name} symbolOnly light className="block h-8 w-auto" />
             </Link>
             <span className="mt-8 block text-xs leading-none">{brand.copyright}</span>
           </div>

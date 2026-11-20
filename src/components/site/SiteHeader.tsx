@@ -7,6 +7,7 @@ import { brand, nav, contactCta } from "@/content/home";
 
 export default function SiteHeader({ overlay = false }: { overlay?: boolean }) {
   const [onHero, setOnHero] = useState(overlay);
+  const [hidden, setHidden] = useState(false);
   const light = overlay && onHero;
 
   useEffect(() => {
@@ -21,12 +22,29 @@ export default function SiteHeader({ overlay = false }: { overlay?: boolean }) {
     return () => io.disconnect();
   }, [overlay]);
 
+  useEffect(() => {
+    let lastY = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      const delta = y - lastY;
+      if (y < 48) setHidden(false);
+      else if (delta > 6) setHidden(true);
+      else if (delta < -6) setHidden(false);
+      lastY = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 ${
+      onFocusCapture={() => setHidden(false)}
+      className={`fixed inset-x-0 top-0 z-50 transition duration-300 ${
+        hidden ? "-translate-y-full" : "translate-y-0"
+      } ${
         light
-          ? "bg-transparent text-white [text-shadow:0_1px_12px_rgba(0,0,0,0.45)] transition-colors duration-300"
-          : "bg-white text-ink  transition-colors duration-300"
+          ? "bg-transparent text-white [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]"
+          : "bg-white text-ink"
       }`}
     >
       <div className="flex h-[88px] items-center justify-between mx-auto max-w-[1312px] px-6 md:px-10">
@@ -52,7 +70,7 @@ export default function SiteHeader({ overlay = false }: { overlay?: boolean }) {
 
           <Link
             href={contactCta.href}
-            className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#4e80ee] px-7 text-[15px] font-medium text-white transition-colors hover:bg-[#386bd5]"
+            className="inline-flex min-h-9 items-center justify-center rounded-full bg-[#4e80ee] px-4 text-[13px] font-medium text-white transition-colors hover:bg-[#386bd5] lg:min-h-[52px] lg:px-7 lg:text-[15px]"
           >
             {contactCta.label}
           </Link>
