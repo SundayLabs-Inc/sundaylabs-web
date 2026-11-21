@@ -5,3 +5,10 @@ export const contactTypes = [
   { value: "resident", ja: "入居者", en: "Resident" },
   { value: "other", ja: "その他", en: "Other" },
 ] as const;
+
+export const contactCategories = [
+  { value: "installation", ja: "導入・共同実証のご相談", en: "Installation and joint pilot" },
+  { value: "residence", ja: "お住まいのマンションへの導入のご相談（建物名はメッセージにご記入ください）", en: "Installation at your building (include the building name in your message)" },
+  { value: "general", ja: "サービスについてのお問い合わせ", en: "Questions about the service" },
+  { value: "other", ja: "その他", en: "Other" },
+] as const;

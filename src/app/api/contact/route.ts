@@ -1,4 +1,4 @@
-import { contactTypes } from "@/constants/contact";
+import { contactCategories, contactTypes } from "@/constants/contact";
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 
@@ -8,6 +8,7 @@ const RESEND_FROM =
 
 type ContactPayload = {
   contactType?: string;
+  category?: string;
   email?: string;
   company?: string;
   role?: string;
@@ -34,13 +35,14 @@ export async function POST(request: Request) {
   }
 
   const contactType = contactTypes.find((type) => type.value === payload.contactType);
+  const category = contactCategories.find((item) => item.value === payload.category);
   const email = String(payload.email ?? "").trim();
   const company = String(payload.company ?? "").trim();
   const role = String(payload.role ?? "").trim();
   const message = String(payload.message ?? "").trim();
   const locale = payload.locale === "en" ? "en" : "ja";
 
-  if (!contactType || !email || !company || !role || !message || !isValidEmail(email)) {
+  if (!contactType || !category || !email || !company || !role || !message || !isValidEmail(email)) {
     return NextResponse.json({ error: "invalid_input" }, { status: 400 });
   }
 
@@ -64,6 +66,7 @@ export async function POST(request: Request) {
 
   const text = [
     `${locale === "en" ? "Contact type" : "お問い合わせ者の区分"}: ${contactType[locale]}`,
+    `${locale === "en" ? "Inquiry" : "お問い合わせ内容"}: ${category[locale]}`,
     `${labels.email}: ${email}`,
     `${labels.company}: ${company}`,
     `${labels.role}: ${role}`,

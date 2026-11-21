@@ -66,9 +66,17 @@
 .scrollWalkthrough > h2 { text-align:center; margin-bottom:64px; }
 .scrollLayout { position:relative; display:grid; grid-template-columns:520fr 632fr; gap:80px; align-items:start; }
 .stickyVisual { position:sticky; top:calc(50svh - 120px); width:100%; aspect-ratio:520/331; border-radius:14px; overflow:hidden; background:#f8f7f6; }
+.stickyFrame { position:absolute; inset:0; }
 .scrollImage { object-fit:contain; opacity:0; transition:opacity .4s ease; }
 .shownImage { opacity:1; }
 .scrollStep { min-height:max(700px,100svh); display:flex; align-items:center; }
+@media(min-width:801px) {
+  .scrollLayout { min-height:260vh; }
+  .scrollDescriptions { position:sticky; top:96px; height:calc(100svh - 128px); display:flex; flex-direction:column; justify-content:space-between; align-self:start; }
+  .scrollDescriptions .scrollStep { min-height:0; align-items:flex-start; }
+  .scrollStepTrack { position:relative; flex:1 1 auto; min-height:120px; overflow:hidden; }
+  .scrollStepMoving { position:absolute; top:0; left:0; width:100%; }
+}
 .scrollStep h3 { font-size:28px; margin-bottom:24px; }
 .scrollStep p { font-size:19px; }
 .faqTrigger { width:100%; background:none; border:0; padding:0; color:inherit; font:inherit; font-size:22px; line-height:1.6; text-align:left; display:flex; align-items:start; justify-content:space-between; gap:24px; cursor:pointer; }
@@ -107,7 +115,11 @@
 
 .mobileStepVisual { display:none; }
 @media(max-width:800px) {
+  .scrollLayout { min-height:0; }
   .scrollLayout > .stickyVisual { display:none; }
+  .scrollDescriptions { position:static; height:auto; display:block; }
+  .scrollStepTrack { position:static; overflow:visible; }
+  .scrollStepMoving { position:static; width:auto; transform:none; }
   .scrollStep { display:flex; flex-direction:column; gap:24px; min-height:0; padding:0; margin-bottom:56px; }
   .scrollStep:last-child { margin-bottom:0; }
   .mobileStepVisual { display:block; position:relative; width:100%; aspect-ratio:520/331; margin:0 auto; overflow:hidden; border-radius:14px; background:#f8f7f6; }

@@ -4,7 +4,7 @@ import { FormEvent, useState } from "react";
 import CtaButton from "@/components/CtaButton";
 import { getSite, type Locale } from "@/constants/site";
 
-import { contactTypes } from "@/constants/contact";
+import { contactCategories, contactTypes } from "@/constants/contact";
 
 type FormStatus = "idle" | "sending" | "success" | "error";
 
@@ -21,6 +21,7 @@ export default function ContactCta({ locale }: { locale: Locale }) {
     const data = new FormData(formEl);
     const payload = {
       contactType: String(data.get("contactType") || ""),
+      category: String(data.get("category") || ""),
       email: String(data.get("email") || ""),
       company: String(data.get("company") || ""),
       role: String(data.get("role") || ""),
@@ -58,6 +59,15 @@ export default function ContactCta({ locale }: { locale: Locale }) {
         <select name="contactType" required defaultValue="" className="field-input">
           <option value="" disabled>{locale === "ja" ? "選択してください" : "Please select"}</option>
           {contactTypes.map((type) => <option key={type.value} value={type.value}>{type[locale]}</option>)}
+        </select>
+      </label>
+      <label className="block">
+        <span className="label-1 mb-2 block text-muted">
+          {locale === "ja" ? "お問い合わせ内容" : "Inquiry"}
+        </span>
+        <select name="category" required defaultValue="" className="field-input">
+          <option value="" disabled>{locale === "ja" ? "選択してください" : "Please select"}</option>
+          {contactCategories.map((category) => <option key={category.value} value={category.value}>{category[locale]}</option>)}
         </select>
       </label>
       <label className="block">
