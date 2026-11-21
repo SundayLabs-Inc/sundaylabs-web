@@ -29,12 +29,12 @@ export default function HomeRentalPage() {
     </section>
     <AppWalkthrough />
     <section id="owners" className={`${styles.section} ${styles.split}`} aria-labelledby="owner-heading">
-      <div className={styles.copy}><h2 id="owner-heading">共用スペースの活用で<br />住まいに新たな価値を</h2><p>共用の空きスペースを、家電や生活ガジェットを利用できる設備へ。居住者の日々の利便性を高め、物件選びの魅力となるサービスをご提案します。</p><p>商品の管理・メンテナンスから居住者のお問い合わせ対応まで、SundayLabsが担当します。設置場所や運用方法は、物件の条件に合わせて調整します。</p></div>
+      <div className={styles.copy}><p className={styles.audienceLabel}>不動産オーナー・管理会社の方へ</p><h2 id="owner-heading">共用スペースの活用で<br />住まいに新たな価値を</h2><p>共用の空きスペースを、家電や生活ガジェットを利用できる設備へ。居住者の日々の利便性を高め、物件選びの魅力となるサービスをご提案します。</p><p>商品の管理・メンテナンスから居住者のお問い合わせ対応まで、SundayLabsが担当します。設置場所や運用方法は、物件の条件に合わせて調整します。</p></div>
       <div className={styles.partnerPhoto}><Image src="/images/figma/property-cityscape.png" alt="マンションが広がる街並み" fill sizes="(max-width: 800px) 100vw, 50vw" /></div>
     </section>
     <section id="manufacturers" className={`${styles.section} ${styles.split} ${styles.manufacturers}`} aria-labelledby="manufacturer-heading">
       <div className={styles.partnerPhoto}><Image src="/images/figma/manufacturer-kitchen.png" alt="家電が日常に溶け込むキッチン" fill sizes="(max-width: 800px) 100vw, 50vw" /></div>
-      <div className={styles.copy}><h2 id="manufacturer-heading">暮らしの中で伝わる<br />製品の価値</h2><p>シェアステーションを通じて、製品を実際の生活環境で試せる機会を提供します。店頭での比較だけではわからない使い心地や日常での利便性を、購入前の体験として届けます。</p><p>製品の特性に応じた貸出方法や導入先への展開など、新たな顧客接点づくりをご相談いただけます。</p></div>
+      <div className={styles.copy}><p className={styles.audienceLabel}>メーカーの方へ</p><h2 id="manufacturer-heading">暮らしの中で伝わる<br />製品の価値</h2><p>シェアステーションを通じて、製品を実際の生活環境で試せる機会を提供します。店頭での比較だけではわからない使い心地や日常での利便性を、購入前の体験として届けます。</p><p>製品の特性に応じた貸出方法や導入先への展開など、新たな顧客接点づくりをご相談いただけます。</p></div>
     </section>
     <section id="faq" className={`${styles.section} ${styles.faq}`} aria-labelledby="faq-heading"><h2 id="faq-heading">よくあるご質問</h2><div className={styles.faqList}>{faqs.map(item=><FaqItem key={item.q} question={item.q} answer={item.a} />)}</div></section>
     <section className={styles.consultation} aria-labelledby="consultation-heading"><div className={styles.consultationInner}><div><h2 id="consultation-heading">設置スペースや運用方法など、導入についてご相談ください。</h2><p>物件の状況に合わせて、設置場所や<br className={styles.desktopBreak} />必要な設備をご案内します。</p><div className={styles.consultationAction}><Link href="/contact" className={styles.button}>設置について相談する</Link></div></div></div></section>
