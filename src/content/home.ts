@@ -82,7 +82,7 @@ export const closing = {
 };
 
 export const seo = {
-  title: "SundayLabs｜マンションの家電シェア・レンタル",
+  title: "SundayLabs｜所有に縛られない新しい暮らしのインフラ",
   description: "SundayLabsは、マンションの共用スペースで家電をシェアするサービスです。マンションオーナー・管理会社の皆さまから、導入のご相談を受け付けています。",
 };
 
