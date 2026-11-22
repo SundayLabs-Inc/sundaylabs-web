@@ -12,9 +12,17 @@ export default function AppWalkthrough() {
     <section id="how" className={`${styles.section} ${styles.howShowcase}`} aria-labelledby="how-heading">
       <div className={styles.howLayout}>
         <div className={styles.howCopy}>
-          <h2 id="how-heading">商品の確認から予約まで、アプリで完結。</h2>
+          <h2 id="how-heading">
+            商品の確認から予約まで、
+            <br className={styles.mobileBreak} />
+            アプリで完結
+          </h2>
           <p>
-            使いたい家電をスマートフォンで選びます。<br />空き状況を確認し、日時を選んで予約します。
+            使いたい家電をスマートフォンで選びます。
+            <br />
+            空き状況を確認し、
+            <br className={styles.mobileBreak} />
+            日時を選んで予約します。
           </p>
         </div>
         <div className={styles.howPhones}>

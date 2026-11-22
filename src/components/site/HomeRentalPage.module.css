@@ -1,4 +1,5 @@
 .page { color:#111; background:#fff; overflow:clip; font-weight:400; }
+.mobileBreak { display:none; }
 .page h1,.page h2,.page h3 { margin:0; font-weight:400; letter-spacing:-.035em; }
 .page p { margin:0; line-height:1.9; line-break:strict; word-break:auto-phrase; }
 .page section { scroll-margin-top:80px; }
@@ -187,28 +188,22 @@
   .howShowcase .howCopy h2 { font-size:28px; }
   .howPhones {
     gap:12px;
-    justify-content:flex-start;
-    overflow-x:auto;
-    scroll-snap-type:x proximity;
-    padding:4px 0 12px;
-    margin-right:-24px;
-    padding-right:24px;
+    justify-content:stretch;
+    overflow:visible;
+    margin:0;
+    padding:0;
   }
-  /* 2枚＋3枚目のチラ見せ（約48px） */
   .howPhoneImage {
-    flex:0 0 calc((100% - 24px - 48px) / 2);
-    width:calc((100% - 24px - 48px) / 2);
-    scroll-snap-align:start;
+    flex:1 1 0;
+    width:100%;
+    min-width:0;
   }
 }
 @media(max-width:800px) {
+  .mobileBreak { display:inline; }
   .howShowcase { padding:72px 0; }
   .howShowcase .howCopy h2 { margin-bottom:20px; font-size:22px; line-height:1.5; }
   .howShowcase .howCopy p { font-size:16px; line-height:1.9; }
-  .howPhones {
-    margin-right:-24px;
-    padding-right:24px;
-  }
   .faqTrigger { font-size:19px; }
 }
 @media(prefers-reduced-motion:reduce) { .faqAnswer,.faqTrigger span:after { transition:none; } }
