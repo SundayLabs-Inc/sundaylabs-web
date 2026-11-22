@@ -47,19 +47,19 @@ export default function SiteHeader({ overlay = false }: { overlay?: boolean }) {
           : "bg-white text-ink"
       }`}
     >
-      <div className="flex h-[88px] items-center justify-between mx-auto max-w-[1312px] px-6 md:px-10">
+      <div className="flex h-16 items-center justify-between mx-auto max-w-[1312px] px-6 md:px-10">
         <Link href="/" className="flex items-center">
-          <Wordmark name={brand.name} symbolOnly light={light} className="h-7 lg:h-8" />
+          <Wordmark name={brand.name} symbolOnly light={light} className="h-6 lg:h-7" />
         </Link>
 
-        <div className="flex items-center gap-6 xl:gap-10">
+        <div className="flex items-center gap-5 xl:gap-8">
           <nav aria-label="メイン" className="hidden lg:block">
-            <ul className="flex items-center gap-6 xl:gap-8">
+            <ul className="flex items-center gap-5 xl:gap-6">
               {nav.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="whitespace-nowrap text-[16px] transition-opacity hover:opacity-50 xl:text-base"
+                    className="whitespace-nowrap text-[13px] transition-opacity hover:opacity-50"
                   >
                     {link.label}
                   </Link>
@@ -70,7 +70,7 @@ export default function SiteHeader({ overlay = false }: { overlay?: boolean }) {
 
           <Link
             href={contactCta.href}
-            className="inline-flex min-h-9 items-center justify-center rounded-full bg-[#4e80ee] px-4 text-[13px] font-medium text-white transition-colors hover:bg-[#386bd5] lg:min-h-[52px] lg:px-7 lg:text-[15px]"
+            className="inline-flex min-h-9 items-center justify-center rounded-full bg-[#4e80ee] px-4 text-[12px] font-medium text-white transition-colors hover:bg-[#386bd5] lg:min-h-10 lg:px-5 lg:text-[13px]"
           >
             {contactCta.label}
           </Link>

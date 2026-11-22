@@ -12,7 +12,7 @@ export default function ContactPage({ locale }: { locale: Locale }) {
       headingId="contact-heading"
       centered
     >
-      <p className="text-center text-[15px] font-normal leading-[2] lg:text-base">{site.contact.body}</p>
+      <p className="text-center text-[16px] font-normal leading-[1.9] tracking-[-0.02em] lg:text-[18px]">{site.contact.body}</p>
       <ContactCta locale={locale} />
     </SubPageLayout>
   );

@@ -2170,6 +2170,18 @@ select.field-input {
   background: #ffffff;
 }
 
+/* Subpages (contact / company / legal) share the homepage sans stack. */
+.site .label-1,
+.site .label-2 {
+  font-family: var(--font-noto-sans-jp), var(--font-inter), system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+.site .field-input,
+.site .page-cta-button,
+.site .contact-submit {
+  font-family: inherit;
+}
+
 .site-content {
   padding-inline: var(--site-inset);
 }

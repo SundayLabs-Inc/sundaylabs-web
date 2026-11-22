@@ -43,7 +43,7 @@ function Block({ block }: { block: LegalBlock }) {
 function SectionBody({ section, id, flush }: { section: LegalSection; id: string; flush?: boolean }) {
   return (
     <section aria-labelledby={id} className={flush ? "" : "border-t border-line pt-8"}>
-      <h2 id={id} className="text-lg font-bold leading-snug text-ink lg:text-xl">
+      <h2 id={id} className="text-lg font-normal leading-snug tracking-[-0.035em] text-ink lg:text-xl">
         {section.heading}
       </h2>
       <div className="mt-4 space-y-4">

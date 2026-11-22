@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import FaqItem from "./FaqItem";
 import AppWalkthrough from "./AppWalkthrough";
+import ProductShelfSection from "./ProductShelfSection";
 import { service } from "@/content/home";
 import styles from "./HomeRentalPage.module.css";
 
@@ -27,6 +28,7 @@ export default function HomeRentalPage() {
       <div className={styles.photoRow}>{photos.map(photo => <div key={photo.name} className={styles.photo}><Image src={`/images/figma/${photo.name}.png`} alt={photo.alt} fill sizes="(max-width: 600px) 72vw, (max-width: 900px) 45vw, 25vw" style={{objectFit:"cover",objectPosition:photo.position}} /></div>)}</div>
       <div className={styles.featureBody}><p>家電を購入するときは、価格だけでなく使う頻度や収納場所も考える必要があります。<br className={styles.desktopBreak} />気になる製品でも、自宅での使い心地がわからず、購入を迷うことがあります。</p><p>SundayLabsは、必要なときだけ家電を借りて自宅で試せる仕組みで、<br className={styles.desktopBreak} />購入費用や収納場所の悩み、使い心地への不安を解決します。</p></div>
     </section>
+    <ProductShelfSection />
     <AppWalkthrough />
     <section id="owners" className={`${styles.section} ${styles.split}`} aria-labelledby="owner-heading">
       <div className={styles.copy}><p className={styles.audienceLabel}>不動産オーナー・管理会社の方へ</p><h2 id="owner-heading">共用スペースの活用で<br />住まいに新たな価値を</h2><p>共用の空きスペースを、家電や生活ガジェットを利用できる設備へ。居住者の日々の利便性を高め、物件選びの魅力となるサービスをご提案します。</p><p>商品の管理・メンテナンスから居住者のお問い合わせ対応まで、SundayLabsが担当します。設置場所や運用方法は、物件の条件に合わせて調整します。</p></div>

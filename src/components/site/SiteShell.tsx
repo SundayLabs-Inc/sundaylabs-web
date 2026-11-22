@@ -22,7 +22,7 @@ export default function SiteShell({
         <SiteHeader overlay={overlayHeader} />
         <main
           id="main"
-          className={`flex-1 ${overlayHeader ? "" : "bg-white pt-24 lg:pt-32"}`}
+          className={`flex-1 ${overlayHeader ? "" : "bg-white pt-16"}`}
         >
           {children}
         </main>

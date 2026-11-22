@@ -23,7 +23,7 @@ export default function SubPageLayout({
       >
         <h1
           id={headingId}
-          className={`text-[32px] font-bold leading-[1.25] tracking-[-0.02em] lg:text-[44px] ${centered ? "mb-7 text-center" : "lg:col-span-4"}`}
+          className={`text-[28px] font-normal leading-[1.6] tracking-[-0.035em] lg:text-[40px] ${centered ? "mb-7 text-center" : "lg:col-span-4"}`}
         >
           {title}
         </h1>
